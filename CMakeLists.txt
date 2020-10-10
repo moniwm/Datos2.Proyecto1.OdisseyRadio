@@ -12,7 +12,13 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-add_executable(OdisseyRadio main.cpp)
+add_executable(OdisseyRadio
+        OdisseyGUI/main.cpp
+        OdisseyGUI/mainwindow.cpp
+        OdisseyGUI/mainwindow.h
+        OdisseyGUI/mainwindow.ui
+        OdisseyGUI/OdisseyGUI.pro.user
+        )
 
 # Link the library to the executable
 target_link_libraries(OdisseyRadio Qt5::Core Qt5::Widgets)

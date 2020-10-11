@@ -94,6 +94,10 @@ void MainWindow::on_paginateBtn_clicked()
     }
 }
 
+/**
+ * @brief This method calculates the amount of rows visible to the client without scrolling the list
+ * @param event
+ */
 void MainWindow::resizeEvent(QResizeEvent *event) {
 
     heightDifference = MainWindow::size().height() - minimumHeight();

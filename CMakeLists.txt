@@ -17,7 +17,7 @@ add_executable(OdisseyRadio
         OdisseyGUI/mainwindow.cpp
         OdisseyGUI/mainwindow.h
         OdisseyGUI/mainwindow.ui
-        OdisseyGUI/OdisseyGUI.pro.user
+        build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 
 # Link the library to the executable

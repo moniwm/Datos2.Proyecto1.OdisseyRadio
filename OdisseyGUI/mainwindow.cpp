@@ -33,12 +33,6 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_closeBtn_clicked()
-{
-    this->close();
-}
-
-
 void MainWindow::on_playBtn_clicked()
 {
     std::cout << "Play music!";

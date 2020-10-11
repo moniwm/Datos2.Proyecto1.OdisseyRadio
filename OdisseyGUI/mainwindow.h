@@ -30,6 +30,12 @@ private slots:
 
     void on_loadBtn_clicked();
 
+    void on_allBtn_stateChanged(int arg1);
+
+    void on_paginateBtn_clicked();
+
+    void resizeEvent(QResizeEvent *event);
+
 private:
     Ui::MainWindow *ui;
 };

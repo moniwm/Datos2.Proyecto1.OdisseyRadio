@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
+    //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint);
 
     /**
      * This block code sets the width for each one of the columns of the table

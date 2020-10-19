@@ -1,10 +1,3 @@
-/********************************************************************************
-** Form generated from reading UI file 'mainwindow.ui'
-**
-** Created by: Qt User Interface Compiler version 5.15.1
-**
-** WARNING! All changes made in this file will be lost when recompiling UI file!
-********************************************************************************/
 
 #ifndef UI_MAINWINDOW_H
 #define UI_MAINWINDOW_H
@@ -53,6 +46,7 @@ public:
     QRadioButton *paginateBtn;
     QLabel *label_2;
     QFrame *line;
+    int progBarWidth = 441;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -144,7 +138,7 @@ public:
         playBtn->setGeometry(QRect(40, 30, 61, 41));
         songControl = new QSlider(frame);
         songControl->setObjectName(QString::fromUtf8("songControl"));
-        songControl->setGeometry(QRect(150, 50, 441, 22));
+        songControl->setGeometry(QRect(150, 50, progBarWidth, 22));
         songControl->setOrientation(Qt::Horizontal);
         nowPlayingLabel = new QLabel(frame);
         nowPlayingLabel->setObjectName(QString::fromUtf8("nowPlayingLabel"));
@@ -320,7 +314,10 @@ public:
         memoryUsageLabel->setText(QCoreApplication::translate("MainWindow", "Memory usage: ", nullptr));
         paginateBtn->setText(QCoreApplication::translate("MainWindow", "Paginate", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "ODISSEY RADIO", nullptr));
+
     } // retranslateUi
+
+  
 
 };
 

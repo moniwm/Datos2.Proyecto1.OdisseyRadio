@@ -36,17 +36,26 @@ MainWindow::MainWindow(QWidget *parent)
 
    extraRows = 0; /// This variable contains the extra amount of rows to be added depending on the window size
 
+    player = new QMediaPlayer(this);
+
+    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete player;
 }
 
 
 void MainWindow::on_playBtn_clicked()
 {
-    std::cout << "Play music! \n";
+    //QString fileName = QFileDialog::getOpenFileName(this, "Choose a file", ".mp3");
+    QString fileName = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/001/001039.mp3";
+    player->setMedia(QUrl::fromLocalFile(fileName));
+    player->setVolume(100);
+    player->play();
 }
 
 void MainWindow::on_infoBtn_clicked()
@@ -106,4 +115,9 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
     ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
     ui->songsList->setRowCount(rowCount);
+}
+
+void MainWindow::on_positionChanged(qint64 position) {
+    std::cout<<position<<std::endl;
+    ui->songControl->setValue(position);
 }

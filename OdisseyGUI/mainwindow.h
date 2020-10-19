@@ -9,6 +9,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QMediaPlayer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,7 +39,11 @@ private slots:
 
     void resizeEvent(QResizeEvent *event);
 
+    void on_positionChanged(qint64 position);
+
 private:
     Ui::MainWindow *ui;
+    QMediaPlayer  *player;
+
 };
 #endif // MAINWINDOW_H

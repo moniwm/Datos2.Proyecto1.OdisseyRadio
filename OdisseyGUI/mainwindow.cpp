@@ -137,7 +137,7 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
 
 /*!
- * Private slot. Updates song's slider position
+ * Private slot. Updates song's slider position if it isn't pressed
  * @param position : qint64
  */
 void MainWindow::on_positionChanged(qint64 position) {
@@ -146,16 +146,27 @@ void MainWindow::on_positionChanged(qint64 position) {
     ui->lengthLabel->setText(SecondsToMinutes(position/1000));
 }
 
+/*!
+ * Sets flag to disable movement of the slider
+ */
 void MainWindow::on_songControl_sliderPressed() {
     is_slider_pressed = true;
 }
 
+/*!
+ * Updates the playback position in the song when the slider is released
+ */
 void MainWindow::on_songControl_sliderReleased() {
     is_slider_pressed = false;
     int position = ui->songControl->value();
     mp3_player->SliderMoved(position);
 }
 
+/*!
+ * Parse seconds to minute:seconds QString format
+ * @param seconds
+ * @return
+ */
 QString MainWindow::SecondsToMinutes(qint64 seconds) {
     int sec = seconds;
     QString mn = QString::number( (sec ) / 60);

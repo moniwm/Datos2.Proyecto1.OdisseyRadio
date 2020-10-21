@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     duration_subject = new DurationSubject();
     duration_subject->Attach(pp_mp3_player);
 
-    isPlaying = false;
+    is_playing = is_slider_pressed = false;
 
     connect(mp3_player->getPlayer(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(mp3_player->getPlayer(), SIGNAL(durationChanged(qint64)), this, SLOT(on_durationChanged(qint64)));
@@ -58,14 +58,14 @@ void MainWindow::on_durationChanged(qint64 duration) {
 }
 
 void MainWindow::on_playBtn_clicked() {
-    if (isPlaying) {
+    if (is_playing) {
         ui->playBtn->setText(QCoreApplication::translate("MainWindow", "Play", nullptr));
         mp3_player->PauseSong();
     } else {
         ui->playBtn->setText(QCoreApplication::translate("MainWindow", "Pause", nullptr));
         mp3_player->PlaySong();
     }
-    isPlaying = !isPlaying;
+    is_playing = !is_playing;
 }
 
 void MainWindow::on_infoBtn_clicked() {
@@ -125,5 +125,16 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
  * @param position : qint64
  */
 void MainWindow::on_positionChanged(qint64 position) {
-    mp3_player->UpdateSlider(position);
+    if (!is_slider_pressed)
+        mp3_player->UpdateSlider(position);
+}
+
+void MainWindow::on_songControl_sliderPressed() {
+    is_slider_pressed = true;
+}
+
+void MainWindow::on_songControl_sliderReleased() {
+    is_slider_pressed = false;
+    int position = ui->songControl->value();
+    mp3_player->SliderMoved(position);
 }

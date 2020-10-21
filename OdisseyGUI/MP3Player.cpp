@@ -9,6 +9,8 @@ MP3Player::MP3Player(Ui::MainWindow **ppUi) {
     file_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/001/001039.mp3";
     player = new QMediaPlayer();
     player->setNotifyInterval(50);
+    //QString fileName = QFileDialog::getOpenFileName(this, "Choose a file", ".mp3");
+    player->setMedia(QUrl::fromLocalFile(file_path));
     ui = *ppUi;
 }
 
@@ -30,9 +32,7 @@ QMediaPlayer *MP3Player::getPlayer() const {
 
 void MP3Player::UpdateSlider(qint64 current_time) {
 
-    //std::cout << player->duration() << std::endl;
     current_pos = 100*current_time/song_duration;
-    //cout<<current_time<<endl;
     ui->songControl->setValue(current_pos);
 
 }
@@ -46,8 +46,7 @@ Ui::MainWindow *MP3Player::getUi() const {
  * Method that starts playing current song
  */
 void MP3Player::PlaySong() {
-    //QString fileName = QFileDialog::getOpenFileName(this, "Choose a file", ".mp3");
-    player->setMedia(QUrl::fromLocalFile(file_path));
+
     player->setVolume(100);
     player->play();
 }
@@ -65,5 +64,13 @@ void MP3Player::PauseSong() {
  */
 void MP3Player::setSongDuration(qint64 songDuration) {
     song_duration = songDuration;
-    std::cout<<songDuration<<std::endl;
+}
+
+/*!
+ * Updates the playback position if slider moved for fast forward or rewinding the song
+ * @param position
+ */
+void MP3Player::SliderMoved(int position) {
+    qint64 new_position = song_duration*position/100;
+    player->setPosition(new_position);
 }

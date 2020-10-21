@@ -44,9 +44,13 @@ private slots:
 
     void resizeEvent(QResizeEvent *event);
 
+    void on_songControl_sliderPressed();
+
+    void on_songControl_sliderReleased();
+
 
 private:
-    bool isPlaying;
+    bool is_playing, is_slider_pressed;
 
     MP3Player * mp3_player;
 
@@ -55,7 +59,5 @@ private:
     Ui::MainWindow *ui;
 
     int SliderPos(int time);
-
-
 
 };

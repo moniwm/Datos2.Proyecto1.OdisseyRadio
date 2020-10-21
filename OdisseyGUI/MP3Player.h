@@ -31,6 +31,8 @@ public:
     void PauseSong();
 
     void setSongDuration(qint64 songDuration);
+
+    void SliderMoved(int position);
 };
 
 

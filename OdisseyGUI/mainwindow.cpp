@@ -17,7 +17,6 @@ int extraRows;
 int heightDifference;
 int rowCount;
 
-
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -26,13 +25,19 @@ MainWindow::MainWindow(QWidget *parent)
     //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint); // Set borderless window
 
     /**
-     * This block code sets the width for each one of the columns of the table
+     * This block of code sets the width for each one of the columns of the table
      */
 
     ui->songsList->setColumnWidth(0, 275);
     ui->songsList->setColumnWidth(1, 163);
     ui->songsList->setColumnWidth(2, 100);
     ui->songsList->setColumnWidth(3, 100);
+
+    QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    QIcon playIcon(play);
+    ui->playBtn->setIcon(playIcon);
+
+    //ui->playBtn->setStyleSheet("qproperty-icon: url(:/path/to/images.png);");
 
     extraRows = 0; ///This variable contains the extra amount of rows to be added depending on the window size
 
@@ -59,10 +64,18 @@ void MainWindow::on_durationChanged(qint64 duration) {
 
 void MainWindow::on_playBtn_clicked() {
     if (is_playing) {
-        ui->playBtn->setText(QCoreApplication::translate("MainWindow", "Play", nullptr));
+
+        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        QIcon playIcon(play);
+        ui->playBtn->setIcon(playIcon);
+
         mp3_player->PauseSong();
     } else {
-        ui->playBtn->setText(QCoreApplication::translate("MainWindow", "Pause", nullptr));
+
+        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        QIcon pauseIcon(pause);
+        ui->playBtn->setIcon(pauseIcon);
+
         mp3_player->PlaySong();
     }
     is_playing = !is_playing;

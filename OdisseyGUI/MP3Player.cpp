@@ -6,8 +6,8 @@
 #include "MP3Player.h"
 
 MP3Player::MP3Player(Ui::MainWindow **ppUi) {
-    //file_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/001/001039.mp3";
-    file_path = "/Users/moniwaterhouse/CLionProjects/fma_small/001/001039.mp3";
+    file_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/001/001039.mp3";
+    //file_path = "/Users/moniwaterhouse/CLionProjects/fma_small/001/001039.mp3";
     player = new QMediaPlayer();
     player->setNotifyInterval(50);
     //QString fileName = QFileDialog::getOpenFileName(this, "Choose a file", ".mp3");
@@ -74,4 +74,8 @@ void MP3Player::setSongDuration(qint64 songDuration) {
 void MP3Player::SliderMoved(int position) {
     qint64 new_position = song_duration*position/100;
     player->setPosition(new_position);
+}
+
+qint64 MP3Player::getSongDuration() const {
+    return song_duration;
 }

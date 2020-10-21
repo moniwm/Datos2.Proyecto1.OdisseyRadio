@@ -50,6 +50,7 @@ private slots:
 
 
 private:
+
     bool is_playing, is_slider_pressed;
 
     MP3Player * mp3_player;
@@ -59,5 +60,7 @@ private:
     Ui::MainWindow *ui;
 
     int SliderPos(int time);
+
+    QString SecondsToMinutes(qint64 seconds);
 
 };

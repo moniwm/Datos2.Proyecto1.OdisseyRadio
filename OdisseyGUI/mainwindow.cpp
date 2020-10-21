@@ -33,7 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setColumnWidth(2, 100);
     ui->songsList->setColumnWidth(3, 100);
 
-    QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
     QIcon playIcon(play);
     ui->playBtn->setIcon(playIcon);
 
@@ -65,14 +66,16 @@ void MainWindow::on_durationChanged(qint64 duration) {
 void MainWindow::on_playBtn_clicked() {
     if (is_playing) {
 
-        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
         QIcon playIcon(play);
         ui->playBtn->setIcon(playIcon);
 
         mp3_player->PauseSong();
     } else {
 
-        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        //QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
         QIcon pauseIcon(pause);
         ui->playBtn->setIcon(pauseIcon);
 
@@ -140,6 +143,7 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 void MainWindow::on_positionChanged(qint64 position) {
     if (!is_slider_pressed)
         mp3_player->UpdateSlider(position);
+    ui->lengthLabel->setText(SecondsToMinutes(position/1000));
 }
 
 void MainWindow::on_songControl_sliderPressed() {
@@ -150,4 +154,13 @@ void MainWindow::on_songControl_sliderReleased() {
     is_slider_pressed = false;
     int position = ui->songControl->value();
     mp3_player->SliderMoved(position);
+}
+
+QString MainWindow::SecondsToMinutes(qint64 seconds) {
+    int sec = seconds;
+    QString mn = QString::number( (sec ) / 60);
+    int _tmp_mn  = mn.toInt() * 60;
+    QString sc= QString::number( (seconds- _tmp_mn  ) % 60 );
+
+    return (mn.length() == 1 ? "0" + mn : mn ) + ":" + (sc.length() == 1 ? "0" + sc : sc);
 }

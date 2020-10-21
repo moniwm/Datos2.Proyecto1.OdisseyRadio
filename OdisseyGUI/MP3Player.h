@@ -22,6 +22,8 @@ public:
 
     QMediaPlayer *getPlayer() const;
 
+    qint64 getSongDuration() const;
+
     void UpdateSlider(qint64 current_time);
 
     Ui::MainWindow *getUi() const;

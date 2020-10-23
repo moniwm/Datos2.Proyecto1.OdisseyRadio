@@ -22,8 +22,10 @@ add_executable(OdisseyRadio
         OdisseyGUI/MP3Player.h
         OdisseyGUI/DurationSubject.cpp
         OdisseyGUI/DurationSubject.h
-        OdisseyGUI/tracks.cpp
-        OdisseyGUI/tracks.h
+        LinkedList/LinkedList.h
+        LinkedList/LinkedList.cpp
+        Metadata/tracks.cpp
+        Metadata/tracks.h
         build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 

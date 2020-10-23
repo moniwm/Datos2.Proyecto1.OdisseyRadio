@@ -51,6 +51,14 @@ private slots:
 
 private:
 
+    int const rowHeight = 31; /// Constant variable that stores the height of the table rows
+    int const minimumRows = 16; /// Minimum amount of rows without scrolling
+    int const minimumTableHeight = 500;
+
+    int extraRows;
+    int heightDifference;
+    int rowCount;
+
     bool is_playing, is_slider_pressed;
 
     MP3Player * mp3_player;

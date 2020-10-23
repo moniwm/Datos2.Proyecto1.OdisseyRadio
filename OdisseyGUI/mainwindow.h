@@ -5,10 +5,14 @@
   *
   */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
+#include <QFileInfo>
+#include <QFileDialog>
+
+#include "MP3Player.h"
+#include "DurationSubject.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,9 +38,29 @@ private slots:
 
     void on_paginateBtn_clicked();
 
+    void on_positionChanged(qint64 position);
+
+    void on_durationChanged(qint64 duration);
+
     void resizeEvent(QResizeEvent *event);
 
+    void on_songControl_sliderPressed();
+
+    void on_songControl_sliderReleased();
+
+
 private:
+
+    bool is_playing, is_slider_pressed;
+
+    MP3Player * mp3_player;
+
+    DurationSubject * duration_subject;
+
     Ui::MainWindow *ui;
+
+    int SliderPos(int time);
+
+    QString SecondsToMinutes(qint64 seconds);
+
 };
-#endif // MAINWINDOW_H

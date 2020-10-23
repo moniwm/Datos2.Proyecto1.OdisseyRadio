@@ -1,13 +1,27 @@
 /**
- * @brief This class contains the abstraction of a Linked List object type
- * @author Monica Waterhouse
+ * @brief This file contains a node class and a linked list class in order to store different data types
+ * @author Mónica Waterhouse Montoya
  * @since 10/22/2020
  */
 
 #ifndef ODISSEYRADIO_LINKEDLIST_H
 #define ODISSEYRADIO_LINKEDLIST_H
 
-#include "Node.h"
+template <typename T>
+class Node{
+
+private:
+    T *data;
+    Node<T> *nextNode;
+
+public:
+    Node(T *data);
+    ~Node();
+
+    T getData();
+    Node<T> getNextNode();
+    void setNextNode(T *nextData);
+};
 
 template <typename T>
 
@@ -21,15 +35,11 @@ public:
     LinkedList();
     ~LinkedList();
 
-    int getSize();
-    Node<T> getFirst();
-
     void insertElement(T *data);
     void removeElement(T *data);
-    T *getElement(int position);
-
-
+    T *getElement(int index);
 };
+
 
 
 #endif //ODISSEYRADIO_LINKEDLIST_H

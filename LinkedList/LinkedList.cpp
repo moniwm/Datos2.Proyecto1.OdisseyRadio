@@ -1,13 +1,41 @@
 /**
- * @brief This class contains the abstraction of a Linked List object type
- * @author Monica Waterhouse
+ * @brief This file contains a node class and a linked list class in order to store different data types
+ * @author Mónica Waterhouse Montoya
  * @since 10/22/2020
  */
 
 #include "LinkedList.h"
 
 template <typename T>
-LinkedList<T>::LinkedList(){
+Node<T>::Node(T *data) {
+    this->data = data;
+    this->nextNode = nullptr;
+}
+
+template <typename T>
+Node<T>::~Node<T>() {
+    delete this->data;
+    delete this->nextNode;
+    delete this;
+}
+
+template <typename T>
+T Node<T>::getData() {
+    return this->data;
+}
+
+template <typename T>
+Node<T> Node<T>::getNextNode() {
+    return this->nextNode;
+}
+
+template <typename T>
+void Node<T>::setNextNode(T *nextData) {
+    this->nextNode = new Node<T>(*nextData);
+}
+
+template <typename T>
+LinkedList<T>::LinkedList() {
     this->head = nullptr;
     this->size = 0;
 }
@@ -16,25 +44,6 @@ template <typename T>
 LinkedList<T>::~LinkedList() {
     delete this->head;
     delete this;
-}
-
-template <typename T>
-int LinkedList<T>::getSize() {
-    return this->size;
-}
-
-template <typename T>
-T *LinkedList<T>::getElement(int position) {
-    int current = 0;
-    Node<T> *tempPtr = head;
-    while(tempPtr != nullptr){
-        if(current == position){
-            return tempPtr->getData();
-        }
-        tempPtr = tempPtr->getNext();
-        current++;
-    }
-    return;
 }
 
 template <typename T>
@@ -74,6 +83,7 @@ void LinkedList<T>::removeElement(T *data) {
 
         if(nextPtr->getData() == data) {
             currentPtr->setNext(nextPtr->getNext());
+            delete nextPtr;
             this->size--;
             return;
         }
@@ -83,3 +93,15 @@ void LinkedList<T>::removeElement(T *data) {
     }
 }
 
+template <typename T>
+T *LinkedList<T>::getElement(int index) {
+    Node<T> *tempPtr = head;
+    int position = 0;
+    while(tempPtr != nullptr){
+        if( position == index){
+            return tempPtr->getData();
+        }
+        tempPtr = tempPtr->getNext();
+    }
+    return nullptr;
+}

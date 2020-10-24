@@ -179,7 +179,7 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
     return (mn.length() == 1 ? "0" + mn : mn ) + ":" + (sc.length() == 1 ? "0" + sc : sc);
 }
 
-/*!
+/**
  * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
  */
 void MainWindow::UpdateMemoryPB() {

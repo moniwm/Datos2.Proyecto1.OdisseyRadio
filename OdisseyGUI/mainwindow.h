@@ -11,16 +11,11 @@
 #include <QFileInfo>
 #include <QFileDialog>
 
-#include <unistd.h>
-#include <ios>
-#include <iostream>
-#include <fstream>
-#include <math.h>
-#include <sys/resource.h>
-
 #include "MP3Player.h"
 #include "DurationSubject.h"
 #include "ui_mainwindow.h"
+#include "MemoryUsage.h"
+
 
 using namespace std;
 
@@ -60,7 +55,8 @@ private slots:
 
 
 private:
-    struct rusage usage;
+    MemoryUsage * mem_usage;
+    double vm, rss, max_rss;
 
     bool is_playing, is_slider_pressed;
 
@@ -74,6 +70,6 @@ private:
 
     QString SecondsToMinutes(qint64 seconds);
 
-    void MemUsage(double& vm_usage, double& resident_set, double &max_rss);
+    void UpdateMemoryPB();
 
 };

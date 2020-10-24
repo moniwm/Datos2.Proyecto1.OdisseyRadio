@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Ui::MainWindow **ppUi = &ui;
 
+
+    mem_usage = new MemoryUsage();
+
     //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint); // Set borderless window
 
     /**
@@ -62,6 +65,7 @@ void MainWindow::on_durationChanged(qint64 duration) {
 }
 
 void MainWindow::on_playBtn_clicked() {
+    UpdateMemoryPB(); //updates memory progress bar
     if (is_playing) {
 
         //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
@@ -112,9 +116,6 @@ void MainWindow::on_allBtn_stateChanged(int arg1) {
 
 
 void MainWindow::on_paginateBtn_clicked() {
-    double vm, rss, max_rss;
-    MemUsage(vm, rss, max_rss);
-    cout << "Virtual Memory: " << vm <<" MB"<<"\nResident set size: " << rss <<" MB"<<"\nMax res set size "<<max_rss<<" MB"<< endl;
 
     if (ui->paginateBtn->isChecked()) {
         std::cout << "Paginate memory \n";
@@ -178,26 +179,11 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
     return (mn.length() == 1 ? "0" + mn : mn ) + ":" + (sc.length() == 1 ? "0" + sc : sc);
 }
 
-void MainWindow::MemUsage(double &vm_usage, double &resident_set, double &max_rss) {
-    vm_usage = 0.0;
-    resident_set = 0.0;
-    ifstream stat_stream("/proc/self/stat",ios_base::in); //get info from proc directory
-    //create some variables to get info
-    string pid, comm, state, ppid, pgrp, session, tty_nr;
-    string tpgid, flags, minflt, cminflt, majflt, cmajflt;
-    string utime, stime, cutime, cstime, priority, nice;
-    string O, itrealvalue, starttime;
-    unsigned long vsize;
-    long rss;
-    stat_stream >> pid >> comm >> state >> ppid >> pgrp >> session >> tty_nr
-                >> tpgid >> flags >> minflt >> cminflt >> majflt >> cmajflt
-                >> utime >> stime >> cutime >> cstime >> priority >> nice
-                >> O >> itrealvalue >> starttime >> vsize >> rss; // don't care about the rest
-    stat_stream.close();
-    long page_size_kb = sysconf(_SC_PAGE_SIZE) / 1024; // for x86-64 is configured to use 2MB pages
-    vm_usage = vsize / pow(1024.0,2);//in MB
-    resident_set = rss * page_size_kb/1024;
-
-    getrusage(RUSAGE_SELF, &usage);
-    max_rss = usage.ru_maxrss/1024;
+/*!
+ * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
+ */
+void MainWindow::UpdateMemoryPB() {
+    mem_usage->MemUsage(vm,rss, max_rss);
+    int val = rss/max_rss*100;
+    ui->memoryPB->setValue(val);
 }

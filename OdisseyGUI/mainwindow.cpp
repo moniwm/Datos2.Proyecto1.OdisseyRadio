@@ -4,10 +4,8 @@
   * @since October 9th, 2020
   *
   */
-
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "MP3Player.h"
+
 
 int const rowHeight = 31; /// Constant variable that stores the height of the table rows
 int const minimumRows = 16; /// Minimum amount of rows without scrolling
@@ -21,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     Ui::MainWindow **ppUi = &ui;
+
+    os = OS::GetInstance();
+
+    mem_usage = new MemoryUsage();
 
     //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint); // Set borderless window
 
@@ -64,6 +66,7 @@ void MainWindow::on_durationChanged(qint64 duration) {
 }
 
 void MainWindow::on_playBtn_clicked() {
+
     if (is_playing) {
 
         //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
@@ -114,6 +117,7 @@ void MainWindow::on_allBtn_stateChanged(int arg1) {
 
 
 void MainWindow::on_paginateBtn_clicked() {
+    UpdateMemoryPB(); //updates memory progress bar
     if (ui->paginateBtn->isChecked()) {
         std::cout << "Paginate memory \n";
     } else {
@@ -174,4 +178,18 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
     QString sc= QString::number( (seconds- _tmp_mn  ) % 60 );
 
     return (mn.length() == 1 ? "0" + mn : mn ) + ":" + (sc.length() == 1 ? "0" + sc : sc);
+}
+
+/**
+ * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
+ */
+void MainWindow::UpdateMemoryPB() {
+    mem_usage->MemUsage(vm,rss, max_rss);
+    int int_rss = rss;
+    int val = rss/max_rss*100;
+    ui->memoryPB->setValue(val);
+    QString text = "Memory usage: ";
+    text.append(QString::fromUtf8(to_string(int_rss).c_str()));
+    text.append(" MB");
+    ui->memoryUsageLabel->setText(text);
 }

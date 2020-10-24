@@ -15,8 +15,12 @@ OS *OS::GetInstance() {
 }
 
 void OS::IsLinuxOS(bool &is_linux) {
-#ifdef linux
+#ifdef __linux__
     is_linux = true;
+#endif
+
+#ifdef __APPLE__
+    is_linux = false;
 #endif
 }
 

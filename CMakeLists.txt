@@ -26,7 +26,7 @@ add_executable(OdisseyRadio
         OdisseyGUI/MemoryUsage.h
         OdisseyGUI/OS.cpp
         OdisseyGUI/OS.h
-        build-OdisseyGUI-Works-Debug/ui_mainwindow.h
+        #build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 
 # Link the library to the executable

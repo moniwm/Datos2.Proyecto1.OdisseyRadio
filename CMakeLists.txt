@@ -24,6 +24,8 @@ add_executable(OdisseyRadio
         OdisseyGUI/DurationSubject.h
         OdisseyGUI/MemoryUsage.cpp
         OdisseyGUI/MemoryUsage.h
+        OdisseyGUI/OS.cpp
+        OdisseyGUI/OS.h
         build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 

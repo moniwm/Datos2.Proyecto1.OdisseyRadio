@@ -20,6 +20,10 @@ void DurationSubject::Detach(MP3Player **pp_mp3_player) {
     list_observer.push_back(*pp_mp3_player);
 }
 
+/*!
+ * Notifies observer that the duration of the current song has changed
+ * @param duration
+ */
 void DurationSubject::Notify(qint64 duration) {
     list<MP3Player *>::iterator iterator = list_observer.begin();
     while( iterator != list_observer.end()){

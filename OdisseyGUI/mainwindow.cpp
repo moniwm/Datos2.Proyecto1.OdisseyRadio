@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Ui::MainWindow **ppUi = &ui;
 
+    os = OS::GetInstance();
 
     mem_usage = new MemoryUsage();
 
@@ -65,7 +66,7 @@ void MainWindow::on_durationChanged(qint64 duration) {
 }
 
 void MainWindow::on_playBtn_clicked() {
-    UpdateMemoryPB(); //updates memory progress bar
+
     if (is_playing) {
 
         //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
@@ -116,7 +117,7 @@ void MainWindow::on_allBtn_stateChanged(int arg1) {
 
 
 void MainWindow::on_paginateBtn_clicked() {
-
+    UpdateMemoryPB(); //updates memory progress bar
     if (ui->paginateBtn->isChecked()) {
         std::cout << "Paginate memory \n";
     } else {
@@ -184,6 +185,11 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
  */
 void MainWindow::UpdateMemoryPB() {
     mem_usage->MemUsage(vm,rss, max_rss);
+    int int_rss = rss;
     int val = rss/max_rss*100;
     ui->memoryPB->setValue(val);
+    QString text = "Memory usage: ";
+    text.append(QString::fromUtf8(to_string(int_rss).c_str()));
+    text.append(" MB");
+    ui->memoryUsageLabel->setText(text);
 }

@@ -15,6 +15,7 @@
 #include "DurationSubject.h"
 #include "ui_mainwindow.h"
 #include "MemoryUsage.h"
+#include "OS.h"
 
 
 using namespace std;
@@ -71,5 +72,7 @@ private:
     QString SecondsToMinutes(qint64 seconds);
 
     void UpdateMemoryPB();
+
+    OS *os;
 
 };

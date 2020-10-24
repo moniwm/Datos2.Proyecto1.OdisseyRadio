@@ -11,8 +11,18 @@
 #include <QFileInfo>
 #include <QFileDialog>
 
+#include <unistd.h>
+#include <ios>
+#include <iostream>
+#include <fstream>
+#include <math.h>
+#include <sys/resource.h>
+
 #include "MP3Player.h"
 #include "DurationSubject.h"
+#include "ui_mainwindow.h"
+
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -50,6 +60,7 @@ private slots:
 
 
 private:
+    struct rusage usage;
 
     bool is_playing, is_slider_pressed;
 
@@ -62,5 +73,7 @@ private:
     int SliderPos(int time);
 
     QString SecondsToMinutes(qint64 seconds);
+
+    void MemUsage(double& vm_usage, double& resident_set, double &max_rss);
 
 };

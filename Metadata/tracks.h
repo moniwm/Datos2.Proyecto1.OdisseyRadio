@@ -16,6 +16,7 @@ using namespace std;
 class Track {
 
 private:
+    std::string trackID;
     std::string album;
     std::string title;
     std::string artist;
@@ -24,9 +25,16 @@ private:
 
 public:
 
-    Track(std::string album, std::string title, std::string artist, std::string length, std::string genre);
+    Track();
     ~Track();
 
+    void setTrackID(std::string trackID);
+    void setAlbum(std::string album);
+    void setTitle(std::string title);
+    void setArtist(std::string artist);
+    void setGenre(std::string genre);
+
+    std::string getTrackID();
     std::string getAlbum();
     std::string getTitle();
     std::string getArtist();

@@ -24,8 +24,6 @@ add_executable(OdisseyRadio
         OdisseyGUI/DurationSubject.h
         Metadata/tracks.cpp
         Metadata/tracks.h
-        LinkedList/LinkedList.cpp
-        LinkedList/LinkedList.h
         build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 

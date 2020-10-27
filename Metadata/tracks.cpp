@@ -8,18 +8,32 @@
 
 #include "tracks.h"
 
-Track::Track(std::string album, std::string title, std::string artist, std::string length, std::string genre) {
-
-    this->album = album;
-    this->title = title;
-    this->artist = artist;
-    this->length = length;
-    this->genre = genre;
-
+Track::Track() {
+    this->length = "00:30";
 }
 
 Track::~Track() {
     delete this;
+}
+
+void Track::setAlbum(std::string album) {
+    this->album = album;
+}
+
+void Track::setArtist(std::string artist) {
+    this->artist = artist;
+}
+
+void Track::setGenre(std::string genre) {
+    this->genre = genre;
+}
+
+void Track::setTitle(std::string title) {
+    this->title = title;
+}
+
+void Track::setTrackID(std::string trackID) {
+    this->trackID = trackID;
 }
 
 std::string Track::getAlbum() {
@@ -40,4 +54,8 @@ std::string Track::getLength() {
 
 std::string Track::getTitle() {
     return this->title;
+}
+
+std::string Track::getTrackID() {
+    return this->trackID;
 }

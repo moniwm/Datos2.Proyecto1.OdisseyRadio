@@ -27,6 +27,11 @@ add_executable(OdisseyRadio
         OdisseyGUI/ListGenerator.h
         Metadata/LinkedList.h
         build-OdisseyGUI-Works-Debug/ui_mainwindow.h
+        OdisseyGUI/MemoryUsage.cpp
+        OdisseyGUI/MemoryUsage.h
+        OdisseyGUI/OS.cpp
+        OdisseyGUI/OS.h
+        #build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 
 # Link the library to the executable

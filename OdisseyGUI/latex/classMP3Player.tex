@@ -1,0 +1,84 @@
+\hypertarget{classMP3Player}{}\doxysection{M\+P3\+Player Class Reference}
+\label{classMP3Player}\index{MP3Player@{MP3Player}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}\label{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}} 
+{\bfseries M\+P3\+Player} (Ui\+::\+Main\+Window $\ast$$\ast$pp\+Ui)
+\item 
+\mbox{\Hypertarget{classMP3Player_afb4797808226c38ae98c55336e06e2aa}\label{classMP3Player_afb4797808226c38ae98c55336e06e2aa}} 
+Q\+Media\+Player $\ast$ {\bfseries get\+Player} () const
+\item 
+\mbox{\Hypertarget{classMP3Player_a8c42585aa02ab1d380f8455ee9fd6dac}\label{classMP3Player_a8c42585aa02ab1d380f8455ee9fd6dac}} 
+qint64 {\bfseries get\+Song\+Duration} () const
+\item 
+void \mbox{\hyperlink{classMP3Player_a812b59379efc39865d8602898b8a7abf}{Update\+Slider}} (qint64 current\+\_\+time)
+\item 
+\mbox{\Hypertarget{classMP3Player_af6da9d10d4d5d9ae46af984b247fbfdc}\label{classMP3Player_af6da9d10d4d5d9ae46af984b247fbfdc}} 
+Ui\+::\+Main\+Window $\ast$ {\bfseries get\+Ui} () const
+\item 
+void \mbox{\hyperlink{classMP3Player_a2ff1e336a035a4105d3d9f720aa8d815}{Play\+Song}} ()
+\item 
+void \mbox{\hyperlink{classMP3Player_a77c1ba291d899d0201d0b8216449654e}{Pause\+Song}} ()
+\item 
+void \mbox{\hyperlink{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}{set\+Song\+Duration}} (qint64 song\+Duration)
+\item 
+void \mbox{\hyperlink{classMP3Player_a1b864d9239694ffb58474dd72ea721e1}{Slider\+Moved}} (int position)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMP3Player_a77c1ba291d899d0201d0b8216449654e}\label{classMP3Player_a77c1ba291d899d0201d0b8216449654e}} 
+\index{MP3Player@{MP3Player}!PauseSong@{PauseSong}}
+\index{PauseSong@{PauseSong}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{PauseSong()}{PauseSong()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::\+Pause\+Song (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Method that pauses current song \mbox{\Hypertarget{classMP3Player_a2ff1e336a035a4105d3d9f720aa8d815}\label{classMP3Player_a2ff1e336a035a4105d3d9f720aa8d815}} 
+\index{MP3Player@{MP3Player}!PlaySong@{PlaySong}}
+\index{PlaySong@{PlaySong}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{PlaySong()}{PlaySong()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::\+Play\+Song (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Method that starts playing current song \mbox{\Hypertarget{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}\label{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}} 
+\index{MP3Player@{MP3Player}!setSongDuration@{setSongDuration}}
+\index{setSongDuration@{setSongDuration}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{setSongDuration()}{setSongDuration()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::set\+Song\+Duration (\begin{DoxyParamCaption}\item[{qint64}]{song\+Duration }\end{DoxyParamCaption})}
+
+Setter for song\+\_\+duration 
+\begin{DoxyParams}{Parameters}
+{\em song\+Duration} & \+: qint64 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMP3Player_a1b864d9239694ffb58474dd72ea721e1}\label{classMP3Player_a1b864d9239694ffb58474dd72ea721e1}} 
+\index{MP3Player@{MP3Player}!SliderMoved@{SliderMoved}}
+\index{SliderMoved@{SliderMoved}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{SliderMoved()}{SliderMoved()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::\+Slider\+Moved (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+Updates the playback position if slider moved for fast forward or rewinding the song 
+\begin{DoxyParams}{Parameters}
+{\em position} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMP3Player_a812b59379efc39865d8602898b8a7abf}\label{classMP3Player_a812b59379efc39865d8602898b8a7abf}} 
+\index{MP3Player@{MP3Player}!UpdateSlider@{UpdateSlider}}
+\index{UpdateSlider@{UpdateSlider}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{UpdateSlider()}{UpdateSlider()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::\+Update\+Slider (\begin{DoxyParamCaption}\item[{qint64}]{current\+\_\+time }\end{DoxyParamCaption})}
+
+Updates the current\+\_\+time of the slider depending on the current time (milliseconds) that the song has been played 
+\begin{DoxyParams}{Parameters}
+{\em time} & \+: int \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+current\+\_\+time \+: int 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+M\+P3\+Player.\+h\item 
+M\+P3\+Player.\+cpp\end{DoxyCompactItemize}

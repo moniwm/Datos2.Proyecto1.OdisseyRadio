@@ -13,6 +13,12 @@
 
 #include "MP3Player.h"
 #include "DurationSubject.h"
+#include "ui_mainwindow.h"
+#include "MemoryUsage.h"
+#include "OS.h"
+
+
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -50,6 +56,8 @@ private slots:
 
 
 private:
+    MemoryUsage * mem_usage;
+    double vm, rss, max_rss;
 
     int const rowHeight = 31; /// Constant variable that stores the height of the table rows
     int const minimumRows = 16; /// Minimum amount of rows without scrolling
@@ -70,5 +78,9 @@ private:
     int SliderPos(int time);
 
     QString SecondsToMinutes(qint64 seconds);
+
+    void UpdateMemoryPB();
+
+    OS *os;
 
 };

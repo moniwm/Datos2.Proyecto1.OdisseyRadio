@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setColumnWidth(2, 100);
     ui->songsList->setColumnWidth(3, 100);
 
+
     QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
     //QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
     QIcon playIcon(play);
@@ -46,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(mp3_player->getPlayer(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(mp3_player->getPlayer(), SIGNAL(durationChanged(qint64)), this, SLOT(on_durationChanged(qint64)));
+
+
+    QString data;
 
 }
 

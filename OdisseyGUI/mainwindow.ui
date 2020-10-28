@@ -272,6 +272,9 @@
     <property name="rowCount">
      <number>8000</number>
     </property>
+    <property name="columnCount">
+     <number>5</number>
+    </property>
     <attribute name="horizontalHeaderCascadingSectionResizes">
      <bool>false</bool>
     </attribute>
@@ -8402,6 +8405,20 @@
     <column>
      <property name="text">
       <string>Genre</string>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>TrackID</string>
      </property>
      <property name="font">
       <font>

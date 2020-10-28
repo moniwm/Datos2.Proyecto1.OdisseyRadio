@@ -51,6 +51,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(mp3_player->getPlayer(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(mp3_player->getPlayer(), SIGNAL(durationChanged(qint64)), this, SLOT(on_durationChanged(qint64)));
 
+    ui->songsList->hideColumn(4);
+
     this->loadTracks();
 
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -203,14 +205,17 @@ void MainWindow::loadTracks() {
     QString length;
     QString genre;
     QString artist;
+    QString trackID;
 
     for(int i = 0; i < track_list->getSize(); i++){
         title = QString::fromStdString(current->getData()->getTitle());
         length = QString::fromStdString(current->getData()->getLength());
         genre = QString::fromStdString(current->getData()->getGenre());
         artist = QString::fromStdString(current->getData()->getArtist());
+        trackID = QString::fromStdString(current->getData()->getTrackID());
 
-        for(int j = 0; j < 4; j++){
+
+        for(int j = 0; j < 5; j++){
             if(j == 0){
                 ui->songsList->setItem(i, j, new QTableWidgetItem(title));
             }
@@ -220,11 +225,15 @@ void MainWindow::loadTracks() {
             else if(j == 2){
                 ui->songsList->setItem(i, j, new QTableWidgetItem(length));
             }
-            else{
+            else if(j == 3){
                 ui->songsList->setItem(i, j, new QTableWidgetItem(genre));
+            }
+            else{
+                ui->songsList->setItem(i, j, new QTableWidgetItem(trackID));
             }
         }
 
         current = current ->getNext();
     }
 }
+

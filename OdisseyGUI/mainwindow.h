@@ -55,7 +55,7 @@ private slots:
     void on_songControl_sliderPressed();
 
     void on_songControl_sliderReleased();
-
+    
 
 private:
     MemoryUsage * mem_usage;

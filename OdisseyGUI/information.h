@@ -14,6 +14,7 @@ class Information : public QMainWindow
 public:
     Information(QWidget *parent = nullptr);
     ~Information();
+    void getInformation(std::string title, std::string genre, std::string artist, std::string length);
 
 private slots:
     void on_btn_close_clicked();

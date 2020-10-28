@@ -94,4 +94,9 @@ private:
 
     OS *os;
 
+    std::string current_title;
+    std::string current_genre;
+    std::string current_artist;
+    std::string current_length;
+
 };

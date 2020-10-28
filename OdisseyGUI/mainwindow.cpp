@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-    QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+    QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    //QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
     QIcon playIcon(play);
     ui->playBtn->setIcon(playIcon);
 
@@ -57,6 +57,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
 
+    current_artist = " ";
+    current_title = " ";
+    current_length = " ";
+    current_genre = " ";
+
 }
 
 MainWindow::~MainWindow() {
@@ -71,16 +76,16 @@ void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
 
-        //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-        QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        //QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
         QIcon playIcon(play);
         ui->playBtn->setIcon(playIcon);
 
         mp3_player->PauseSong();
     } else {
 
-        //QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
-        QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
+        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        //QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
         QIcon pauseIcon(pause);
         ui->playBtn->setIcon(pauseIcon);
 
@@ -95,6 +100,7 @@ void MainWindow::on_playBtn_clicked() {
 
 void MainWindow::on_infoBtn_clicked() {
     information = new Information(this);
+    information->getInformation(this->current_title, this->current_genre, this->current_artist, this->current_length);
     information->show();
 
 }

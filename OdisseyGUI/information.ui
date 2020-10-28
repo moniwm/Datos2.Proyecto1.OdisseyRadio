@@ -80,7 +80,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&gt; Title: </string>
+     <string>Title: </string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -100,7 +100,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&gt; Artist: </string>
+     <string>Artist: </string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -120,7 +120,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&gt; Genre:</string>
+     <string>Genre:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -140,7 +140,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&gt; Length:</string>
+     <string>Length:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_title">

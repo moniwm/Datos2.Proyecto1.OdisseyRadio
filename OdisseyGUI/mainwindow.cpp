@@ -57,10 +57,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
 
-    current_artist = " ";
-    current_title = " ";
-    current_length = " ";
-    current_genre = " ";
+    NodeLL<Track> *first = track_list->getFirst();
+    current_artist = QString::fromStdString(first->getData()->getArtist());
+    current_title = QString::fromStdString(first->getData()->getTitle());
+    current_length = QString::fromStdString(first->getData()->getLength());
+    current_genre =QString::fromStdString(first->getData()->getGenre());
 
 }
 

@@ -10,7 +10,7 @@ using namespace std;
 #pragma once
 class MP3Player {
 private:
-    QString file_path;
+    QString main_path;
     QMediaPlayer *player;
     Ui::MainWindow * ui;
     qint64 song_duration;
@@ -35,6 +35,8 @@ public:
     void setSongDuration(qint64 songDuration);
 
     void SliderMoved(int position);
+
+    void setPlayingTrack(int &row);
 };
 
 

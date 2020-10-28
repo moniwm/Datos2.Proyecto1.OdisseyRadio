@@ -55,6 +55,8 @@ private slots:
     void on_songControl_sliderPressed();
 
     void on_songControl_sliderReleased();
+
+    void on_sectionDoubleClicked(const QModelIndex &index);
     
 
 private:
@@ -80,7 +82,6 @@ private:
     Ui::MainWindow *ui;
 
     int SliderPos(int time);
-
 
     QString SecondsToMinutes(qint64 seconds);
 

@@ -21,9 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint); // Set borderless window
 
-    /**
-     * This block of code sets the width for each one of the columns of the table
-     */
+     ///This block of code sets the width for each one of the columns of the table
 
     ui->songsList->setColumnWidth(0, 275);
     ui->songsList->setColumnWidth(1, 163);
@@ -31,8 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setColumnWidth(3, 100);
 
 
-    QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-    //QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+
+    //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
     QIcon playIcon(play);
     ui->playBtn->setIcon(playIcon);
 
@@ -56,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->loadTracks();
 
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    connect(ui->songsList, SIGNAL(clicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
 
 }
 
@@ -71,20 +71,25 @@ void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
 
-        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-        //QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+        //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
         QIcon playIcon(play);
         ui->playBtn->setIcon(playIcon);
 
         mp3_player->PauseSong();
     } else {
 
-        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
-        //QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
+        //QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
         QIcon pauseIcon(pause);
         ui->playBtn->setIcon(pauseIcon);
 
+        int position = ui->songControl->value();
+        mp3_player->SliderMoved(position);
+        cout<<position<<endl;
+
         mp3_player->PlaySong();
+
     }
     is_playing = !is_playing;
 }
@@ -231,9 +236,21 @@ void MainWindow::loadTracks() {
             else{
                 ui->songsList->setItem(i, j, new QTableWidgetItem(trackID));
             }
+
         }
 
         current = current ->getNext();
     }
 }
 
+/*!
+ * When a row is double clicked, calls method that sets the new playing track
+ * @param index
+ */
+void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
+    int cell_row;
+    if (index.isValid()) {
+        cell_row = index.row();
+    }
+    mp3_player->setPlayingTrack(cell_row);
+}

@@ -31,7 +31,9 @@ add_executable(OdisseyRadio
         OdisseyGUI/MemoryUsage.h
         OdisseyGUI/OS.cpp
         OdisseyGUI/OS.h
-        OdisseyGUI/SmallMetadata.csv
+        OdisseyGUI/information.ui
+        OdisseyGUI/information.cpp
+        OdisseyGUI/information.h
         #build-OdisseyGUI-Works-Debug/ui_mainwindow.h
         )
 

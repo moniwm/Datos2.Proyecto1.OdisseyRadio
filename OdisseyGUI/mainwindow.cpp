@@ -55,7 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->loadTracks();
 
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    connect(ui->songsList, SIGNAL(clicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
+    connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
 
 }
 
@@ -86,7 +86,6 @@ void MainWindow::on_playBtn_clicked() {
 
         int position = ui->songControl->value();
         mp3_player->SliderMoved(position);
-        cout<<position<<endl;
 
         mp3_player->PlaySong();
 
@@ -97,6 +96,7 @@ void MainWindow::on_playBtn_clicked() {
 void MainWindow::on_infoBtn_clicked() {
     information = new Information(this);
     information->show();
+
 }
 
 void MainWindow::on_loadBtn_clicked() {
@@ -155,6 +155,15 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 void MainWindow::on_positionChanged(qint64 position) {
     if (!is_slider_pressed)
         mp3_player->UpdateSlider(position);
+
+    if (position == mp3_player->getSongDuration()){
+        int new_row = mp3_player->getRow();
+        new_row++;
+        cout<<new_row<<endl;
+        mp3_player->setPlayingTrack(new_row);
+        on_playBtn_clicked();
+        ui->songsList->selectRow(new_row);
+    }
     ui->lengthLabel->setText(SecondsToMinutes(position/1000));
 }
 
@@ -253,5 +262,7 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
     if (index.isValid()) {
         cell_row = index.row();
     }
+    if (!is_playing)
+        on_playBtn_clicked();
     mp3_player->setPlayingTrack(cell_row);
 }

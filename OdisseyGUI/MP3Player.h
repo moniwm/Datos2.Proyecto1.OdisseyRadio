@@ -4,6 +4,7 @@
 #include <QString>
 #include <QMediaPlayer>
 #include <iostream>
+#include <unistd.h>
 #include "ui_mainwindow.h"
 using namespace std;
 
@@ -15,6 +16,7 @@ private:
     Ui::MainWindow * ui;
     qint64 song_duration;
     qint64 current_pos;
+    int row;
 public:
     MP3Player(Ui::MainWindow ** ppUi);
 
@@ -37,6 +39,8 @@ public:
     void SliderMoved(int position);
 
     void setPlayingTrack(int &row);
+
+    int getRow() const;
 };
 
 

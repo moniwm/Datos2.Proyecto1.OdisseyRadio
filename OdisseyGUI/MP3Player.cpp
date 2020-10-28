@@ -10,12 +10,13 @@ MP3Player::MP3Player(Ui::MainWindow **ppUi) {
     //main_path = "/Users/moniwaterhouse/CLionProjects/fma_small/001/001039.mp3";
     player = new QMediaPlayer();
     player->setNotifyInterval(50);
-    //QString fileName = QFileDialog::getOpenFileName(this, "Choose a file", ".mp3");
     int id = 0;
-    player->setMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002"));
-    //player->setMedia(QUrl::fromLocalFile("/Users/moniwaterhouse/CLionProjects//fma_small/000/000002"));
-
+    player->setMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002.mp3"));
+    //player->setMedia(QUrl::fromLocalFile("/Users/moniwaterhouse/CLionProjects//fma_small/000/000002.mp3"));
+    row = 0;
     ui = *ppUi;
+    ui->nowPlayingLabel->setText("Food");
+    ui->songsList->selectRow(row);
 }
 
 MP3Player::~MP3Player() {
@@ -88,12 +89,28 @@ qint64 MP3Player::getSongDuration() const {
  * Sets the QMediaPlayer and the song's metadata displayed in the info window. Function called when a row is double clicked
  */
 void MP3Player::setPlayingTrack(int &row) {
+
     QTableWidgetItem * track_id = ui->songsList->item(row,4);
+    QTableWidgetItem * track_tittle = ui->songsList->item(row,0);
     QString s_track_id = track_id->text();
     QString file_path = main_path;
     file_path.append(s_track_id[0]); file_path.append(s_track_id[1]); file_path.append(s_track_id[2]);
     file_path.append('/');
     file_path.append(s_track_id);
     file_path.append(".mp3");
+    this->row = row;
     player->setMedia(QUrl::fromLocalFile(file_path));
+    QString tittle = track_tittle->text();
+    ui->nowPlayingLabel->setText(tittle);
+    player->play();
 }
+
+/*!
+ * Row getter
+ * @return row : int
+ */
+int MP3Player::getRow() const {
+    return row;
+}
+
+

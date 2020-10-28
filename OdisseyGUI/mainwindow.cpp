@@ -152,7 +152,7 @@ void MainWindow::on_positionChanged(qint64 position) {
 
     if (position == mp3_player->getSongDuration()) {
         int new_row = mp3_player->getRow();
-        new_row++;
+        new_row = new_row+1;
         mp3_player->setPlayingTrack(new_row, false);
         ui->songsList->selectRow(new_row);
     }
@@ -217,7 +217,7 @@ void MainWindow::loadTracks() {
     for (int i = 0; i < track_list->getSize(); i++) {
         title = QString::fromStdString(current->getData()->getTitle());
         length = QString::fromStdString(current->getData()->getLength());
-        genre = QString::fromStdString(current->getData()->getGenre());
+        genre = QString::fromStdString(current->getData()->getGenre()).mid(16);
         artist = QString::fromStdString(current->getData()->getArtist());
         trackID = QString::fromStdString(current->getData()->getTrackID());
 

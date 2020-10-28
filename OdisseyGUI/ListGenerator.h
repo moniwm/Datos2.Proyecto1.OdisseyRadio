@@ -27,7 +27,7 @@ LinkedList<Track> *readSmallMetadata(){
         throw std::runtime_error("Could not open file");
     }
 
-    std::string line, data;
+    std::string line, data, title, genre;
 
     if(sourceFile.good())
     {
@@ -74,7 +74,15 @@ LinkedList<Track> *readSmallMetadata(){
                     colIdx++;
                 }
 
-                tracks->insertElement(track);
+                genre = track->getGenre();
+                title = track->getTitle();
+                bool genreStatus = (genre.find("genre_title") != std::string::npos);
+
+                if(genreStatus && title.size()>0 && genre.size()>0){
+                    tracks->insertElement(track);
+                }
+
+
 
             }
         }

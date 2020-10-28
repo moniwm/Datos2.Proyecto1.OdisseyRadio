@@ -94,4 +94,9 @@ private:
 
     OS *os;
 
+    QString current_title;
+    QString current_genre;
+    QString current_artist;
+    QString current_length;
+
 };

@@ -6,8 +6,8 @@
 #include "MP3Player.h"
 
 MP3Player::MP3Player(Ui::MainWindow **ppUi) {
-    main_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/";
-    //main_path = "/Users/moniwaterhouse/CLionProjects/fma_small/001/001039.mp3";
+    //main_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/";
+    main_path = "/Users/moniwaterhouse/CLionProjects/fma_small/";
     player = new QMediaPlayer();
     player->setNotifyInterval(50);
     int id = 0;
@@ -96,6 +96,7 @@ void MP3Player::setPlayingTrack(int &row, bool click_on_row) {
 
     QTableWidgetItem * track_id = ui->songsList->item(row,4);
     QTableWidgetItem * track_tittle = ui->songsList->item(row,0);
+
     QString s_track_id = track_id->text();
     QString file_path = main_path;
     file_path.append(s_track_id[0]); file_path.append(s_track_id[1]); file_path.append(s_track_id[2]);
@@ -105,9 +106,7 @@ void MP3Player::setPlayingTrack(int &row, bool click_on_row) {
     this->row = row;
     QString tittle = track_tittle->text();
     ui->nowPlayingLabel->setText(tittle);
-    playlist->addMedia(QUrl::fromLocalFile(file_path));
-    if (click_on_row)
-        playlist->next();
+    player->play();
 }
 
 /*!

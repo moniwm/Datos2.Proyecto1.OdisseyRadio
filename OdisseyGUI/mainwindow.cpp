@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-    QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+    QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    //QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
     QIcon playIcon(play);
     ui->playBtn->setIcon(playIcon);
 
@@ -57,6 +57,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
 
+    NodeLL<Track> *first = track_list->getFirst();
+    current_artist = QString::fromStdString(first->getData()->getArtist());
+    current_title = QString::fromStdString(first->getData()->getTitle());
+    current_length = QString::fromStdString(first->getData()->getLength());
+    current_genre =QString::fromStdString(first->getData()->getGenre());
+
 }
 
 MainWindow::~MainWindow() {
@@ -71,16 +77,16 @@ void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
 
-        //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-        QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        //QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
         QIcon playIcon(play);
         ui->playBtn->setIcon(playIcon);
 
         mp3_player->PauseSong();
     } else {
 
-        //QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
-        QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
+        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        //QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
         QIcon pauseIcon(pause);
         ui->playBtn->setIcon(pauseIcon);
 
@@ -95,6 +101,7 @@ void MainWindow::on_playBtn_clicked() {
 
 void MainWindow::on_infoBtn_clicked() {
     information = new Information(this);
+    information->getInformation(this->current_title, this->current_genre, this->current_artist, this->current_length);
     information->show();
 
 }
@@ -263,4 +270,14 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
     if (!is_playing)
         on_playBtn_clicked();
     mp3_player->setPlayingTrack(cell_row, true);
+
+    QTableWidgetItem * track_title = ui->songsList->item(cell_row,0);
+    QTableWidgetItem * track_artist = ui->songsList->item(cell_row,1);
+    QTableWidgetItem * track_length = ui->songsList->item(cell_row,2);
+    QTableWidgetItem * track_genre = ui->songsList->item(cell_row,3);
+
+    current_title = track_title->text();
+    current_artist = track_artist->text();
+    current_length = track_length->text();
+    current_genre = track_genre->text();
 }

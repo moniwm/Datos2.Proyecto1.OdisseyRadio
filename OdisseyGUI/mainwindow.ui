@@ -164,14 +164,20 @@
     <widget class="QPushButton" name="playBtn">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>30</y>
-       <width>61</width>
-       <height>41</height>
+       <x>50</x>
+       <y>40</y>
+       <width>30</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
     <widget class="QSlider" name="songControl">
@@ -230,6 +236,44 @@
      </property>
      <property name="text">
       <string>00:00</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="nextBtn">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>40</y>
+       <width>30</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="previousBtn">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>30</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
      </property>
     </widget>
    </widget>

@@ -60,6 +60,10 @@ private slots:
     void on_sectionDoubleClicked(const QModelIndex &index);
     
 
+    void on_nextBtn_clicked();
+
+    void on_previousBtn_clicked();
+
 private:
     MemoryUsage * mem_usage;
     double vm, rss, max_rss;
@@ -102,5 +106,9 @@ private:
     void set_play_btn();
 
     void set_pause_btn();
+
+    void set_previous_btn();
+
+    void set_next_btn();
 
 };

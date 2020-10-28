@@ -56,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent)
     current_genre = QString::fromStdString(first->getData()->getGenre());
 
     set_play_btn();
+    set_previous_btn();
+    set_next_btn();
 }
 
 MainWindow::~MainWindow() {
@@ -297,3 +299,39 @@ void MainWindow::set_pause_btn() {
     }
 }
 
+void MainWindow::set_next_btn() {
+    if (os->isLinux()) {
+        QPixmap next(
+                "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/next.png");
+        QIcon nextIcon(next);
+        ui->nextBtn->setIcon(nextIcon);
+    } else {
+        QPixmap next("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/next.png");
+        QIcon nextIcon(next);
+        ui->nextBtn->setIcon(nextIcon);
+    }
+}
+
+void MainWindow::set_previous_btn() {
+    if (os->isLinux()) {
+        QPixmap previous(
+                "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/next.png");
+        QIcon previousIcon(previous);
+        ui->previousBtn->setIcon(previousIcon);
+    } else {
+        QPixmap previous("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/previous.png");
+        QIcon previousIcon(previous);
+        ui->previousBtn->setIcon(previousIcon);
+    }
+}
+
+
+void MainWindow::on_nextBtn_clicked()
+{
+    std::cout << "Next";
+}
+
+void MainWindow::on_previousBtn_clicked()
+{
+    std::cout << "Previous";
+}

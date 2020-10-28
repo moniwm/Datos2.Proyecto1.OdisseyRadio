@@ -1,7 +1,9 @@
 //
 // Created by luispedro on 24/10/20.
 //
-
+#include <string>
+#include "iostream"
+using namespace std;
 #pragma once
 
 /*!
@@ -9,10 +11,11 @@
  */
 class OS {
 protected:
-    OS(bool is_linux) : is_linux(is_linux){
+    OS(bool is_linux) : is_linux(is_linux) {
 
     }
-    static OS* os;
+
+    static OS *os;
     bool is_linux;
 
 public:
@@ -26,20 +29,21 @@ public:
     /*!
      * Makes singleton object non-assignable
      */
-    void operator = (const OS &) = delete;
+    void operator=(const OS &) = delete;
 
     /*!
      * Static methos that controls access to the singleton instance
      */
-     static OS * GetInstance();
+    static OS *GetInstance();
 
-     /*!
-      * Method that checks whether the OS used is Linux or Mac
-      */
-     static void IsLinuxOS(bool &is_linux);
+    /*!
+     * Method that checks whether the OS used is Linux or Mac
+     */
+    static void IsLinuxOS(bool &is_linux);
 
 
     bool isLinux() const;
+
 };
 
 

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "ui_mainwindow.h"
+#include "OS.h"
 using namespace std;
 
 #pragma once
@@ -19,6 +20,7 @@ private:
     qint64 song_duration;
     qint64 current_pos;
     int row;
+    OS * os;
 public:
     MP3Player(Ui::MainWindow ** ppUi);
 

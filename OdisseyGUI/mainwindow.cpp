@@ -21,26 +21,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint); // Set borderless window
 
-     ///This block of code sets the width for each one of the columns of the table
+    ///This block of code sets the width for each one of the columns of the table
 
     ui->songsList->setColumnWidth(0, 275);
     ui->songsList->setColumnWidth(1, 163);
     ui->songsList->setColumnWidth(2, 100);
     ui->songsList->setColumnWidth(3, 100);
 
-
-
-    //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-    QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
-    QIcon playIcon(play);
-    ui->playBtn->setIcon(playIcon);
-
-    //ui->playBtn->setStyleSheet("qproperty-icon: url(:/path/to/images.png);");
-
     extraRows = 0; ///This variable contains the extra amount of rows to be added depending on the window size
 
     mp3_player = new MP3Player(ppUi);
-    MP3Player** pp_mp3_player = &mp3_player;
+    MP3Player **pp_mp3_player = &mp3_player;
 
     duration_subject = new DurationSubject();
     duration_subject->Attach(pp_mp3_player);
@@ -55,14 +46,16 @@ MainWindow::MainWindow(QWidget *parent)
     this->loadTracks();
 
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(on_sectionDoubleClicked(QModelIndex)));
+    connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this,
+            SLOT(on_sectionDoubleClicked(QModelIndex)));
 
     NodeLL<Track> *first = track_list->getFirst();
     current_artist = QString::fromStdString(first->getData()->getArtist());
     current_title = QString::fromStdString(first->getData()->getTitle());
     current_length = QString::fromStdString(first->getData()->getLength());
-    current_genre =QString::fromStdString(first->getData()->getGenre());
+    current_genre = QString::fromStdString(first->getData()->getGenre());
 
+    set_play_btn();
 }
 
 MainWindow::~MainWindow() {
@@ -77,18 +70,12 @@ void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
 
-        //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-        QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
-        QIcon playIcon(play);
-        ui->playBtn->setIcon(playIcon);
+        set_play_btn();
 
         mp3_player->PauseSong();
     } else {
 
-        //QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
-        QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
-        QIcon pauseIcon(pause);
-        ui->playBtn->setIcon(pauseIcon);
+        set_pause_btn();
 
         int position = ui->songControl->value();
         mp3_player->SliderMoved(position);
@@ -163,13 +150,13 @@ void MainWindow::on_positionChanged(qint64 position) {
     if (!is_slider_pressed)
         mp3_player->UpdateSlider(position);
 
-    if (position == mp3_player->getSongDuration()){
+    if (position == mp3_player->getSongDuration()) {
         int new_row = mp3_player->getRow();
         new_row++;
         mp3_player->setPlayingTrack(new_row, false);
         ui->songsList->selectRow(new_row);
     }
-    ui->lengthLabel->setText(SecondsToMinutes(position/1000));
+    ui->lengthLabel->setText(SecondsToMinutes(position / 1000));
 }
 
 /*!
@@ -195,20 +182,20 @@ void MainWindow::on_songControl_sliderReleased() {
  */
 QString MainWindow::SecondsToMinutes(qint64 seconds) {
     int sec = seconds;
-    QString mn = QString::number( (sec ) / 60);
-    int _tmp_mn  = mn.toInt() * 60;
-    QString sc= QString::number( (seconds- _tmp_mn  ) % 60 );
+    QString mn = QString::number((sec) / 60);
+    int _tmp_mn = mn.toInt() * 60;
+    QString sc = QString::number((seconds - _tmp_mn) % 60);
 
-    return (mn.length() == 1 ? "0" + mn : mn ) + ":" + (sc.length() == 1 ? "0" + sc : sc);
+    return (mn.length() == 1 ? "0" + mn : mn) + ":" + (sc.length() == 1 ? "0" + sc : sc);
 }
 
 /**
  * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
  */
 void MainWindow::UpdateMemoryPB() {
-    mem_usage->MemUsage(vm,rss, max_rss);
+    mem_usage->MemUsage(vm, rss, max_rss);
     int int_rss = rss;
-    int val = rss/max_rss*100;
+    int val = rss / max_rss * 100;
     ui->memoryPB->setValue(val);
     QString text = "Memory usage: ";
     text.append(QString::fromUtf8(to_string(int_rss).c_str()));
@@ -227,7 +214,7 @@ void MainWindow::loadTracks() {
     QString artist;
     QString trackID;
 
-    for(int i = 0; i < track_list->getSize(); i++){
+    for (int i = 0; i < track_list->getSize(); i++) {
         title = QString::fromStdString(current->getData()->getTitle());
         length = QString::fromStdString(current->getData()->getLength());
         genre = QString::fromStdString(current->getData()->getGenre());
@@ -235,26 +222,22 @@ void MainWindow::loadTracks() {
         trackID = QString::fromStdString(current->getData()->getTrackID());
 
 
-        for(int j = 0; j < 5; j++){
-            if(j == 0){
+        for (int j = 0; j < 5; j++) {
+            if (j == 0) {
                 ui->songsList->setItem(i, j, new QTableWidgetItem(title));
-            }
-            else if(j == 1){
+            } else if (j == 1) {
                 ui->songsList->setItem(i, j, new QTableWidgetItem(artist));
-            }
-            else if(j == 2){
+            } else if (j == 2) {
                 ui->songsList->setItem(i, j, new QTableWidgetItem(length));
-            }
-            else if(j == 3){
+            } else if (j == 3) {
                 ui->songsList->setItem(i, j, new QTableWidgetItem(genre));
-            }
-            else{
+            } else {
                 ui->songsList->setItem(i, j, new QTableWidgetItem(trackID));
             }
 
         }
 
-        current = current ->getNext();
+        current = current->getNext();
     }
 }
 
@@ -271,13 +254,46 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
         on_playBtn_clicked();
     mp3_player->setPlayingTrack(cell_row, true);
 
-    QTableWidgetItem * track_title = ui->songsList->item(cell_row,0);
-    QTableWidgetItem * track_artist = ui->songsList->item(cell_row,1);
-    QTableWidgetItem * track_length = ui->songsList->item(cell_row,2);
-    QTableWidgetItem * track_genre = ui->songsList->item(cell_row,3);
+    QTableWidgetItem *track_title = ui->songsList->item(cell_row, 0);
+    QTableWidgetItem *track_artist = ui->songsList->item(cell_row, 1);
+    QTableWidgetItem *track_length = ui->songsList->item(cell_row, 2);
+    QTableWidgetItem *track_genre = ui->songsList->item(cell_row, 3);
 
     current_title = track_title->text();
     current_artist = track_artist->text();
     current_length = track_length->text();
     current_genre = track_genre->text();
 }
+
+/*!
+ * sets icon for play button
+ */
+void MainWindow::set_play_btn() {
+    if (os->isLinux()) {
+        QPixmap play(
+                "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+        QIcon playIcon(play);
+        ui->playBtn->setIcon(playIcon);
+    } else {
+        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        QIcon playIcon(play);
+        ui->playBtn->setIcon(playIcon);
+    }
+}
+
+/*!
+ * sets icon for play button
+ */
+void MainWindow::set_pause_btn() {
+    if (os->isLinux()) {
+        QPixmap pause(
+                "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
+        QIcon pauseIcon(pause);
+        ui->playBtn->setIcon(pauseIcon);
+    } else {
+        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        QIcon pauseIcon(pause);
+        ui->playBtn->setIcon(pauseIcon);
+    }
+}
+

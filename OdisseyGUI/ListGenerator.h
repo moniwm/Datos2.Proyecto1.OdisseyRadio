@@ -3,10 +3,10 @@
 #include <utility> // std::pair
 #include <stdexcept> // std::runtime_error
 #include <sstream> // std::stringstream
+#include "OS.h"
 
 #ifndef ODISSEYRADIO_LISTGENERATOR_H
 #define ODISSEYRADIO_LISTGENERATOR_H
-
 
 LinkedList<Track> *readSmallMetadata(){
 
@@ -14,7 +14,14 @@ LinkedList<Track> *readSmallMetadata(){
 
 
     //std::ifstream sourceFile("../cmake-build-debug/SmallMetaData.csv");
-    std::ifstream sourceFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_metadata/SmallMetadata.csv");
+    //string source = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_metadata/SmallMetadata.csv";
+    OS * os = OS::GetInstance();
+    string small_metadata;
+    if (os->isLinux())
+        small_metadata = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_metadata/SmallMetadata.csv";
+    else
+        small_metadata = "../cmake-build-debug/SmallMetaData.csv";
+    std::ifstream sourceFile(small_metadata);
 
     if(!sourceFile.is_open()){
         throw std::runtime_error("Could not open file");

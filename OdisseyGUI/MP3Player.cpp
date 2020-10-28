@@ -6,14 +6,18 @@
 #include "MP3Player.h"
 
 MP3Player::MP3Player(Ui::MainWindow **ppUi) {
-    main_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/";
-    //main_path = "/Users/moniwaterhouse/CLionProjects/fma_small/";
+    os = OS::GetInstance();
     player = new QMediaPlayer();
     player->setNotifyInterval(50);
-    int id = 0;
     playlist = new QMediaPlaylist(player);
-    playlist->addMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002.mp3"));
-    //playlist->addMedia(QUrl::fromLocalFile("/Users/moniwaterhouse/CLionProjects//fma_small/000/000002.mp3"));
+    if (os->isLinux()){
+        main_path = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/";
+        playlist->addMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002.mp3"));
+    }
+    else{
+        main_path = "/Users/moniwaterhouse/CLionProjects/fma_small/";
+        playlist->addMedia(QUrl::fromLocalFile("/Users/moniwaterhouse/CLionProjects//fma_small/000/000002.mp3"));
+    }
     player->setPlaylist(playlist);
     row = 0;
     ui = *ppUi;

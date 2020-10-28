@@ -99,4 +99,8 @@ private:
     QString current_artist;
     QString current_length;
 
+    void set_play_btn();
+
+    void set_pause_btn();
+
 };

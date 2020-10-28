@@ -11,8 +11,11 @@ MP3Player::MP3Player(Ui::MainWindow **ppUi) {
     player = new QMediaPlayer();
     player->setNotifyInterval(50);
     int id = 0;
-    player->setMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002.mp3"));
+    //player->setMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002.mp3"));
     //player->setMedia(QUrl::fromLocalFile("/Users/moniwaterhouse/CLionProjects//fma_small/000/000002.mp3"));
+    playlist = new QMediaPlaylist(player);
+    playlist->addMedia(QUrl::fromLocalFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_small/000/000002.mp3"));
+    player->setPlaylist(playlist);
     row = 0;
     ui = *ppUi;
     ui->nowPlayingLabel->setText("Food");
@@ -21,6 +24,7 @@ MP3Player::MP3Player(Ui::MainWindow **ppUi) {
 
 MP3Player::~MP3Player() {
     delete player;
+    delete playlist;
     delete this;
 }
 
@@ -88,7 +92,7 @@ qint64 MP3Player::getSongDuration() const {
 /*!
  * Sets the QMediaPlayer and the song's metadata displayed in the info window. Function called when a row is double clicked
  */
-void MP3Player::setPlayingTrack(int &row) {
+void MP3Player::setPlayingTrack(int &row, bool click_on_row) {
 
     QTableWidgetItem * track_id = ui->songsList->item(row,4);
     QTableWidgetItem * track_tittle = ui->songsList->item(row,0);
@@ -99,10 +103,11 @@ void MP3Player::setPlayingTrack(int &row) {
     file_path.append(s_track_id);
     file_path.append(".mp3");
     this->row = row;
-    player->setMedia(QUrl::fromLocalFile(file_path));
     QString tittle = track_tittle->text();
     ui->nowPlayingLabel->setText(tittle);
-    player->play();
+    playlist->addMedia(QUrl::fromLocalFile(file_path));
+    if (click_on_row)
+        playlist->next();
 }
 
 /*!
@@ -111,6 +116,10 @@ void MP3Player::setPlayingTrack(int &row) {
  */
 int MP3Player::getRow() const {
     return row;
+}
+
+QMediaPlaylist *MP3Player::getPlaylist() const {
+    return playlist;
 }
 
 

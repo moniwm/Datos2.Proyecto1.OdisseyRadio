@@ -159,9 +159,7 @@ void MainWindow::on_positionChanged(qint64 position) {
     if (position == mp3_player->getSongDuration()){
         int new_row = mp3_player->getRow();
         new_row++;
-        cout<<new_row<<endl;
-        mp3_player->setPlayingTrack(new_row);
-        on_playBtn_clicked();
+        mp3_player->setPlayingTrack(new_row, false);
         ui->songsList->selectRow(new_row);
     }
     ui->lengthLabel->setText(SecondsToMinutes(position/1000));
@@ -264,5 +262,5 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
     }
     if (!is_playing)
         on_playBtn_clicked();
-    mp3_player->setPlayingTrack(cell_row);
+    mp3_player->setPlayingTrack(cell_row, true);
 }

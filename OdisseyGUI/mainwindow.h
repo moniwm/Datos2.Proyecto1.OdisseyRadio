@@ -94,9 +94,9 @@ private:
 
     OS *os;
 
-    std::string current_title;
-    std::string current_genre;
-    std::string current_artist;
-    std::string current_length;
+    QString current_title;
+    QString current_genre;
+    QString current_artist;
+    QString current_length;
 
 };

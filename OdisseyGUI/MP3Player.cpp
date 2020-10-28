@@ -92,6 +92,7 @@ void MP3Player::setPlayingTrack(int &row) {
 
     QTableWidgetItem * track_id = ui->songsList->item(row,4);
     QTableWidgetItem * track_tittle = ui->songsList->item(row,0);
+
     QString s_track_id = track_id->text();
     QString file_path = main_path;
     file_path.append(s_track_id[0]); file_path.append(s_track_id[1]); file_path.append(s_track_id[2]);
@@ -102,6 +103,7 @@ void MP3Player::setPlayingTrack(int &row) {
     player->setMedia(QUrl::fromLocalFile(file_path));
     QString tittle = track_tittle->text();
     ui->nowPlayingLabel->setText(tittle);
+
     player->play();
 }
 

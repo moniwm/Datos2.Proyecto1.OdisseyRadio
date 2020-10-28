@@ -271,4 +271,14 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
     if (!is_playing)
         on_playBtn_clicked();
     mp3_player->setPlayingTrack(cell_row);
+
+    QTableWidgetItem * track_title = ui->songsList->item(cell_row,0);
+    QTableWidgetItem * track_artist = ui->songsList->item(cell_row,1);
+    QTableWidgetItem * track_length = ui->songsList->item(cell_row,2);
+    QTableWidgetItem * track_genre = ui->songsList->item(cell_row,3);
+
+    current_title = track_title->text();
+    current_artist = track_artist->text();
+    current_length = track_length->text();
+    current_genre = track_genre->text();
 }

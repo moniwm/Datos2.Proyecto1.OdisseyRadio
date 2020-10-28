@@ -90,7 +90,8 @@ void MainWindow::on_playBtn_clicked() {
 }
 
 void MainWindow::on_infoBtn_clicked() {
-    std::cout << "Get song info! \n";
+    information = new Information(this);
+    information->show();
 }
 
 void MainWindow::on_loadBtn_clicked() {

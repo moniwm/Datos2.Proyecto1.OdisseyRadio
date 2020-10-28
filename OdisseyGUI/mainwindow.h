@@ -18,6 +18,7 @@
 #include "OS.h"
 #include "../Metadata/LinkedList.h"
 #include "../Metadata/tracks.h"
+#include "information.h"
 
 
 using namespace std;
@@ -60,6 +61,8 @@ private slots:
 private:
     MemoryUsage * mem_usage;
     double vm, rss, max_rss;
+
+    Information *information;
 
     int const rowHeight = 31; /// Constant variable that stores the height of the table rows
     int const minimumRows = 16; /// Minimum amount of rows without scrolling

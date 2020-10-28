@@ -5,6 +5,7 @@
   *
   */
 #include "mainwindow.h"
+#include "ListGenerator.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     Ui::MainWindow **ppUi = &ui;
 
     os = OS::GetInstance();
+
+    track_list = new LinkedList<Track>();
 
     mem_usage = new MemoryUsage();
 
@@ -48,8 +51,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(mp3_player->getPlayer(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
     connect(mp3_player->getPlayer(), SIGNAL(durationChanged(qint64)), this, SLOT(on_durationChanged(qint64)));
 
+    this->loadTracks();
 
-    QString data;
+    ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 }
 
@@ -129,10 +133,10 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
     heightDifference = MainWindow::size().height() - minimumHeight();
     extraRows = heightDifference / rowHeight;
-    rowCount = minimumRows + extraRows;
+    page_size = minimumRows + extraRows;
 
     ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
-    ui->songsList->setRowCount(rowCount);
+    //ui->songsList->setRowCount(page_size);
 }
 
 
@@ -188,4 +192,39 @@ void MainWindow::UpdateMemoryPB() {
     text.append(QString::fromUtf8(to_string(int_rss).c_str()));
     text.append(" MB");
     ui->memoryUsageLabel->setText(text);
+}
+
+void MainWindow::loadTracks() {
+    track_list = readSmallMetadata();
+    ui->songsList->setRowCount(track_list->getSize());
+
+    NodeLL<Track> *current = track_list->getFirst();
+    QString title;
+    QString length;
+    QString genre;
+    QString artist;
+
+    for(int i = 0; i < track_list->getSize(); i++){
+        title = QString::fromStdString(current->getData()->getTitle());
+        length = QString::fromStdString(current->getData()->getLength());
+        genre = QString::fromStdString(current->getData()->getGenre());
+        artist = QString::fromStdString(current->getData()->getArtist());
+
+        for(int j = 0; j < 4; j++){
+            if(j == 0){
+                ui->songsList->setItem(i, j, new QTableWidgetItem(title));
+            }
+            else if(j == 1){
+                ui->songsList->setItem(i, j, new QTableWidgetItem(artist));
+            }
+            else if(j == 2){
+                ui->songsList->setItem(i, j, new QTableWidgetItem(length));
+            }
+            else{
+                ui->songsList->setItem(i, j, new QTableWidgetItem(genre));
+            }
+        }
+
+        current = current ->getNext();
+    }
 }

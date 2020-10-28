@@ -16,6 +16,8 @@
 #include "ui_mainwindow.h"
 #include "MemoryUsage.h"
 #include "OS.h"
+#include "../Metadata/LinkedList.h"
+#include "../Metadata/tracks.h"
 
 
 using namespace std;
@@ -65,11 +67,13 @@ private:
 
     int extraRows;
     int heightDifference;
-    int rowCount;
+    int page_size;
 
     bool is_playing, is_slider_pressed;
 
     MP3Player * mp3_player;
+
+    LinkedList<Track> *track_list;
 
     DurationSubject * duration_subject;
 
@@ -77,9 +81,12 @@ private:
 
     int SliderPos(int time);
 
+
     QString SecondsToMinutes(qint64 seconds);
 
     void UpdateMemoryPB();
+
+    void loadTracks();
 
     OS *os;
 

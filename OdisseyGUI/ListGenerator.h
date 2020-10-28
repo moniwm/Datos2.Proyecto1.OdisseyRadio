@@ -3,12 +3,9 @@
 #include <utility> // std::pair
 #include <stdexcept> // std::runtime_error
 #include <sstream> // std::stringstream
-#include "../Metadata/tracks.h"
-#include "../Metadata/LinkedList.h"
 
 #ifndef ODISSEYRADIO_LISTGENERATOR_H
 #define ODISSEYRADIO_LISTGENERATOR_H
-
 
 
 LinkedList<Track> *readSmallMetadata(){
@@ -48,46 +45,34 @@ LinkedList<Track> *readSmallMetadata(){
 
                     if(colIdx == 0){
                         track->setTrackID(data);
-                        std::cout << data <<" ";
                     }
 
                     else if(colIdx == 1){
-                        track->setAlbum(data);
-                        std::cout << data <<" ";
+                        track->setTitle(data);
                     }
 
                     else if(colIdx == 2){
                         track->setArtist(data);
-                        std::cout << data <<" ";
                     }
 
                     else if(colIdx == 3){
-                        track->setGenre(data );
-                        std::cout << data <<" ";
+                        track->setAlbum(data );
                     }
 
                     else if(colIdx ==4){
-                        track->setTitle(data);
-                        std::cout << data <<" ";
+                        track->setGenre(data);
                     }
 
-                    std::cout <<"\n";
                     colIdx++;
-
                 }
 
                 tracks->insertElement(track);
-
 
             }
         }
     }
 
-    NodeLL<Track> *current = tracks->getFirst();
-
-    for(int i  = 0; i < tracks->getSize(); i++){
-        std::cout << current->getData()->getTrackID() << "\n";
-    }
+    tracks->remove(0);
 
     return tracks;
 

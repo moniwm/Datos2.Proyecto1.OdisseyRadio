@@ -13,8 +13,8 @@ LinkedList<Track> *readSmallMetadata(){
     LinkedList<Track> *tracks = new LinkedList<Track>();
 
 
-    std::ifstream sourceFile("../cmake-build-debug/SmallMetaData.csv");
-    //std::ifstream sourceFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_metadata/SmallMetadata.csv");
+    //std::ifstream sourceFile("../cmake-build-debug/SmallMetaData.csv");
+    std::ifstream sourceFile("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_metadata/SmallMetadata.csv");
 
     if(!sourceFile.is_open()){
         throw std::runtime_error("Could not open file");

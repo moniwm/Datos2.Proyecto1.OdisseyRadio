@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 
-    QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-    //QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+    //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+    QPixmap play("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
     QIcon playIcon(play);
     ui->playBtn->setIcon(playIcon);
 
@@ -77,16 +77,16 @@ void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
 
-        QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
-        //QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
+        //QPixmap play("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/play.png");
+        QPixmap play ("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
         QIcon playIcon(play);
         ui->playBtn->setIcon(playIcon);
 
         mp3_player->PauseSong();
     } else {
 
-        QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
-        //QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
+        //QPixmap pause("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/pause.png");
+        QPixmap pause("/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
         QIcon pauseIcon(pause);
         ui->playBtn->setIcon(pauseIcon);
 

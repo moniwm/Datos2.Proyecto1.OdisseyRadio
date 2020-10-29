@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent)
     mp3_player = new MP3Player(ppUi);
     MP3Player **pp_mp3_player = &mp3_player;
 
+    init_mframe_posy = ui->memory_frame->pos().y();
+
     duration_subject = new DurationSubject();
     duration_subject->Attach(pp_mp3_player);
 
@@ -58,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent)
     SetPlayBtn();
     SetPreviousBtn();
     SetNextBtn();
+    UpdateMemoryPB();
+    getArtistList(track_list);
+
 }
 
 MainWindow::~MainWindow() {
@@ -101,7 +106,7 @@ void MainWindow::on_loadBtn_clicked() {
 }
 
 
-void MainWindow::on_allBtn_stateChanged(int arg1) {
+/*void MainWindow::on_allBtn_stateChanged(int arg1) {
     if (ui->allBtn->isChecked()) {
         ui->album1Btn->setChecked(true);
         ui->album2Btn->setChecked(true);
@@ -117,7 +122,7 @@ void MainWindow::on_allBtn_stateChanged(int arg1) {
         ui->album5Btn->setChecked(false);
         ui->album6Btn->setChecked(false);
     }
-}
+}*/
 
 
 void MainWindow::on_paginateBtn_clicked() {
@@ -140,6 +145,9 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
     page_size = minimumRows + extraRows;
 
     ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
+
+    ui->memory_frame->move(0, init_mframe_posy + heightDifference);
+
     //ui->songsList->setRowCount(page_size);
 }
 
@@ -360,4 +368,29 @@ void MainWindow::SetInfoWin(int &cell_row) {
     current_artist = track_artist->text();
     current_length = track_length->text();
     current_genre = track_genre->text();
+}
+
+void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
+    NodeLL<Track> *current = allTracks->getFirst();
+    std::string current_artist = current->getData()->getArtist();
+    std::string existing_artist = current_artist;
+
+    artist_list.push_back(current_artist);
+    current = current->getNext();
+
+    for(int i = 1; i < allTracks->getSize() ; i++){
+        current_artist = current->getData()->getArtist();
+
+        if(current_artist != existing_artist){
+            artist_list.push_back(current_artist);
+            existing_artist = current_artist;
+        }
+
+        current = current->getNext();
+
+    }
+
+    for(int i = 0; i < artist_list.size(); i++){
+        std::cout << artist_list.at(i) << "\n";
+    }
 }

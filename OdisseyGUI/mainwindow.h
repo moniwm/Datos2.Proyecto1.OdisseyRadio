@@ -19,6 +19,7 @@
 #include "../Metadata/LinkedList.h"
 #include "../Metadata/tracks.h"
 #include "information.h"
+#include "vector"
 
 
 using namespace std;
@@ -43,7 +44,7 @@ private slots:
 
     void on_loadBtn_clicked();
 
-    void on_allBtn_stateChanged(int arg1);
+    //void on_allBtn_stateChanged(int arg1);
 
     void on_paginateBtn_clicked();
 
@@ -82,6 +83,7 @@ private:
     MP3Player * mp3_player;
 
     LinkedList<Track> *track_list;
+    std::vector<std::string> artist_list;
 
     DurationSubject * duration_subject;
 
@@ -102,6 +104,8 @@ private:
     QString current_artist;
     QString current_length;
 
+    int init_mframe_posy;
+
     void SetPlayBtn();
 
     void SetPauseBtn();
@@ -111,5 +115,7 @@ private:
     void SetNextBtn();
 
     void SetInfoWin(int &cell_row);
+
+    void getArtistList(LinkedList<Track> *allTracks);
 
 };

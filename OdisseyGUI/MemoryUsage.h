@@ -11,6 +11,7 @@
 #include <math.h>
 #include "OS.h"
 
+
 using namespace std;
 
 /*!
@@ -26,5 +27,3 @@ public:
     void MemUsage(double &vm_usage, double &resident_set, double &max_rss);
     OS *os;
 };
-
-

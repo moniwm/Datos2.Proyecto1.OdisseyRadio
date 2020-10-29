@@ -69,4 +69,3 @@ MemoryUsage::MemoryUsage() {
 MemoryUsage::~MemoryUsage() {
     delete this;
 }
-

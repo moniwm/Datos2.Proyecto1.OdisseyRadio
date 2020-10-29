@@ -87,9 +87,6 @@ LinkedList<Track> *readSmallMetadata(){
             }
         }
     }
-
-    tracks->remove(0);
-
     return tracks;
 
 

@@ -241,6 +241,7 @@ void MainWindow::loadTracks() {
 
         current = current->getNext();
     }
+
 }
 
 /*!

@@ -102,12 +102,14 @@ private:
     QString current_artist;
     QString current_length;
 
-    void set_play_btn();
+    void SetPlayBtn();
 
-    void set_pause_btn();
+    void SetPauseBtn();
 
-    void set_previous_btn();
+    void SetPreviousBtn();
 
-    void set_next_btn();
+    void SetNextBtn();
+
+    void SetInfoWin(int &cell_row);
 
 };

@@ -55,9 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
     current_length = QString::fromStdString(first->getData()->getLength());
     current_genre = QString::fromStdString(first->getData()->getGenre());
 
-    set_play_btn();
-    set_previous_btn();
-    set_next_btn();
+    SetPlayBtn();
+    SetPreviousBtn();
+    SetNextBtn();
 }
 
 MainWindow::~MainWindow() {
@@ -72,12 +72,12 @@ void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
 
-        set_play_btn();
+        SetPlayBtn();
 
         mp3_player->PauseSong();
     } else {
 
-        set_pause_btn();
+        SetPauseBtn();
 
         int position = ui->songControl->value();
         mp3_player->SliderMoved(position);
@@ -156,7 +156,7 @@ void MainWindow::on_positionChanged(qint64 position) {
         int new_row = mp3_player->getRow();
         new_row++;
         mp3_player->setPlayingTrack(new_row, false);
-
+        SetInfoWin(new_row);
     }
     ui->lengthLabel->setText(SecondsToMinutes(position / 1000));
 }
@@ -255,22 +255,14 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
     if (!is_playing)
         on_playBtn_clicked();
     mp3_player->setPlayingTrack(cell_row, true);
+    SetInfoWin(cell_row);
 
-    QTableWidgetItem *track_title = ui->songsList->item(cell_row, 0);
-    QTableWidgetItem *track_artist = ui->songsList->item(cell_row, 1);
-    QTableWidgetItem *track_length = ui->songsList->item(cell_row, 2);
-    QTableWidgetItem *track_genre = ui->songsList->item(cell_row, 3);
-
-    current_title = track_title->text();
-    current_artist = track_artist->text();
-    current_length = track_length->text();
-    current_genre = track_genre->text();
 }
 
 /*!
  * sets icon for play button
  */
-void MainWindow::set_play_btn() {
+void MainWindow::SetPlayBtn() {
     if (os->isLinux()) {
         QPixmap play(
                 "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/play.png");
@@ -286,7 +278,7 @@ void MainWindow::set_play_btn() {
 /*!
  * sets icon for play button
  */
-void MainWindow::set_pause_btn() {
+void MainWindow::SetPauseBtn() {
     if (os->isLinux()) {
         QPixmap pause(
                 "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/pause.png");
@@ -299,7 +291,7 @@ void MainWindow::set_pause_btn() {
     }
 }
 
-void MainWindow::set_next_btn() {
+void MainWindow::SetNextBtn() {
     if (os->isLinux()) {
         QPixmap next(
                 "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/next.png");
@@ -312,7 +304,7 @@ void MainWindow::set_next_btn() {
     }
 }
 
-void MainWindow::set_previous_btn() {
+void MainWindow::SetPreviousBtn() {
     if (os->isLinux()) {
         QPixmap previous(
                 "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/previous.png");
@@ -334,6 +326,7 @@ void MainWindow::on_nextBtn_clicked()
     new_row++;
     mp3_player->setPlayingTrack(new_row, true);
     ui->songsList->selectRow(new_row);
+    SetInfoWin(new_row);
 }
 
 void MainWindow::on_previousBtn_clicked()
@@ -345,7 +338,25 @@ void MainWindow::on_previousBtn_clicked()
             mp3_player->PreviousSong(new_row);
         }else
             mp3_player->RestartSong();
+        SetInfoWin(new_row);
     }
     else
         mp3_player->RestartSong();
+
+}
+
+/*!
+ * Sets info window with the metadata of current track
+ * @param cell_row : int
+ */
+void MainWindow::SetInfoWin(int &cell_row) {
+    QTableWidgetItem *track_title = ui->songsList->item(cell_row, 0);
+    QTableWidgetItem *track_artist = ui->songsList->item(cell_row, 1);
+    QTableWidgetItem *track_length = ui->songsList->item(cell_row, 2);
+    QTableWidgetItem *track_genre = ui->songsList->item(cell_row, 3);
+
+    current_title = track_title->text();
+    current_artist = track_artist->text();
+    current_length = track_length->text();
+    current_genre = track_genre->text();
 }

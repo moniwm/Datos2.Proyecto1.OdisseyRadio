@@ -73,6 +73,7 @@ private:
     int const rowHeight = 31; /// Constant variable that stores the height of the table rows
     int const minimumRows = 16; /// Minimum amount of rows without scrolling
     int const minimumTableHeight = 500;
+    int const minimumListHeight = 291;
 
     int extraRows;
     int heightDifference;

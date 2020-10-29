@@ -148,6 +148,8 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
     ui->memory_frame->move(0, init_mframe_posy + heightDifference);
 
+    ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
+
     //ui->songsList->setRowCount(page_size);
 }
 
@@ -373,7 +375,8 @@ void MainWindow::SetInfoWin(int &cell_row) {
 void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
     NodeLL<Track> *current = allTracks->getFirst();
     std::string current_artist = current->getData()->getArtist();
-    std::string existing_artist = current_artist;
+
+    QString artist_name;
 
     artist_list.push_back(current_artist);
     current = current->getNext();
@@ -381,16 +384,18 @@ void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
     for(int i = 1; i < allTracks->getSize() ; i++){
         current_artist = current->getData()->getArtist();
 
-        if(current_artist != existing_artist){
+        if(std::find(artist_list.begin(), artist_list.end(), current_artist) == artist_list.end()){
             artist_list.push_back(current_artist);
-            existing_artist = current_artist;
+            artist_name = QString::fromStdString(current_artist);
+            QListWidgetItem *item = new QListWidgetItem(artist_name, ui->artist_listWidget);
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable); // set checkable flag
+            item->setCheckState(Qt::Unchecked);
+            //ui->listWidget->addItem(item);
+
         }
 
         current = current->getNext();
 
     }
 
-    for(int i = 0; i < artist_list.size(); i++){
-        std::cout << artist_list.at(i) << "\n";
-    }
 }

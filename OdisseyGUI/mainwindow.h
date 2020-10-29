@@ -64,6 +64,11 @@ private slots:
 
     void on_previousBtn_clicked();
 
+    void on_allBtn_stateChanged(int arg1);
+    
+
+    void on_artist_listWidget_itemSelectionChanged();
+
 private:
     MemoryUsage * mem_usage;
     double vm, rss, max_rss;
@@ -107,6 +112,8 @@ private:
 
     int init_mframe_posy;
 
+    bool allBtn_uncheckedManually;
+
     void SetPlayBtn();
 
     void SetPauseBtn();
@@ -118,5 +125,9 @@ private:
     void SetInfoWin(int &cell_row);
 
     void getArtistList(LinkedList<Track> *allTracks);
+
+    void checkAllArtists();
+
+    void uncheckAllArtists();
 
 };

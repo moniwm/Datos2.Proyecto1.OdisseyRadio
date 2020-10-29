@@ -57,11 +57,14 @@ MainWindow::MainWindow(QWidget *parent)
     current_length = QString::fromStdString(first->getData()->getLength());
     current_genre = QString::fromStdString(first->getData()->getGenre());
 
+    allBtn_uncheckedManually = true;
+
     SetPlayBtn();
     SetPreviousBtn();
     SetNextBtn();
     UpdateMemoryPB();
     getArtistList(track_list);
+    checkAllArtists();
 
 }
 
@@ -104,26 +107,6 @@ void MainWindow::on_loadBtn_clicked() {
     std::cout << "Load library! \n";
 
 }
-
-
-/*void MainWindow::on_allBtn_stateChanged(int arg1) {
-    if (ui->allBtn->isChecked()) {
-        ui->album1Btn->setChecked(true);
-        ui->album2Btn->setChecked(true);
-        ui->album3Btn->setChecked(true);
-        ui->album4Btn->setChecked(true);
-        ui->album5Btn->setChecked(true);
-        ui->album6Btn->setChecked(true);
-    } else {
-        ui->album1Btn->setChecked(false);
-        ui->album2Btn->setChecked(false);
-        ui->album3Btn->setChecked(false);
-        ui->album4Btn->setChecked(false);
-        ui->album5Btn->setChecked(false);
-        ui->album6Btn->setChecked(false);
-    }
-}*/
-
 
 void MainWindow::on_paginateBtn_clicked() {
     UpdateMemoryPB(); //updates memory progress bar
@@ -397,5 +380,45 @@ void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
         current = current->getNext();
 
     }
+
+}
+
+void MainWindow::on_allBtn_stateChanged(int arg1)
+{
+    if(ui->allBtn->isChecked()){
+        loadTracks();
+        checkAllArtists();
+        allBtn_uncheckedManually = true;
+
+    }
+
+    else{
+        if(allBtn_uncheckedManually){
+            uncheckAllArtists();
+            allBtn_uncheckedManually = true;
+        }
+
+    }
+
+}
+
+
+void MainWindow::checkAllArtists() {
+
+    for(int i = 0; i < artist_list.size()-1; i++){
+        ui->artist_listWidget->item(i)->setCheckState(Qt::Checked);
+    }
+}
+
+void MainWindow::uncheckAllArtists() {
+    for(int i = 0; i < artist_list.size()-1; i++){
+        ui->artist_listWidget->item(i)->setCheckState(Qt::Unchecked);
+    }
+}
+
+void MainWindow::on_artist_listWidget_itemSelectionChanged()
+{
+    allBtn_uncheckedManually = false;
+    ui->allBtn->setCheckState(Qt::Unchecked);
 
 }

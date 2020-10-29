@@ -154,9 +154,9 @@ void MainWindow::on_positionChanged(qint64 position) {
 
     if (position == mp3_player->getSongDuration()) {
         int new_row = mp3_player->getRow();
-        new_row = new_row+1;
+        new_row++;
         mp3_player->setPlayingTrack(new_row, false);
-        ui->songsList->selectRow(new_row);
+
     }
     ui->lengthLabel->setText(SecondsToMinutes(position / 1000));
 }
@@ -315,7 +315,7 @@ void MainWindow::set_next_btn() {
 void MainWindow::set_previous_btn() {
     if (os->isLinux()) {
         QPixmap previous(
-                "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/next.png");
+                "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/Project 1/OdisseyGUI/images/previous.png");
         QIcon previousIcon(previous);
         ui->previousBtn->setIcon(previousIcon);
     } else {
@@ -328,10 +328,24 @@ void MainWindow::set_previous_btn() {
 
 void MainWindow::on_nextBtn_clicked()
 {
-    std::cout << "Next";
+    if (!is_playing)
+        on_playBtn_clicked();
+    int new_row = mp3_player->getRow();
+    new_row++;
+    mp3_player->setPlayingTrack(new_row, true);
+    ui->songsList->selectRow(new_row);
 }
 
 void MainWindow::on_previousBtn_clicked()
 {
-    std::cout << "Previous";
+    if (mp3_player->getPlayer()->position() < 1000){
+        int new_row = mp3_player->getRow();
+        if (new_row > 0){
+            new_row--;
+            mp3_player->PreviousSong(new_row);
+        }else
+            mp3_player->RestartSong();
+    }
+    else
+        mp3_player->RestartSong();
 }

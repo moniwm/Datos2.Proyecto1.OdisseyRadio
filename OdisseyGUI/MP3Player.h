@@ -47,6 +47,10 @@ public:
     void setPlayingTrack(int &row, bool click_on_row);
 
     int getRow() const;
+
+    void RestartSong();
+
+    void PreviousSong(int &row);
 };
 
 

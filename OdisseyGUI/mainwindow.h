@@ -59,7 +59,6 @@ private slots:
 
     void on_sectionDoubleClicked(const QModelIndex &index);
     
-
     void on_nextBtn_clicked();
 
     void on_previousBtn_clicked();

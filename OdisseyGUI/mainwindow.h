@@ -65,9 +65,9 @@ private slots:
     void on_previousBtn_clicked();
 
     void on_allBtn_stateChanged(int arg1);
-    
 
-    void on_artist_listWidget_itemSelectionChanged();
+
+    void on_artist_listWidget_itemChanged(QListWidgetItem *item);
 
 private:
     MemoryUsage * mem_usage;

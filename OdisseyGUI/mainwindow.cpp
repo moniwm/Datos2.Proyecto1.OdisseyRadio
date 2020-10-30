@@ -66,6 +66,9 @@ MainWindow::MainWindow(QWidget *parent)
     getArtistList(track_list);
     checkAllArtists();
 
+    ui->allBtn->setCheckState(Qt::Checked);
+
+
 }
 
 MainWindow::~MainWindow() {
@@ -357,14 +360,11 @@ void MainWindow::SetInfoWin(int &cell_row) {
 
 void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
     NodeLL<Track> *current = allTracks->getFirst();
-    std::string current_artist = current->getData()->getArtist();
+    std::string current_artist;
 
     QString artist_name;
 
-    artist_list.push_back(current_artist);
-    current = current->getNext();
-
-    for(int i = 1; i < allTracks->getSize() ; i++){
+    for(int i = 0; i < allTracks->getSize(); i++){
         current_artist = current->getData()->getArtist();
 
         if(std::find(artist_list.begin(), artist_list.end(), current_artist) == artist_list.end()){
@@ -373,7 +373,6 @@ void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
             QListWidgetItem *item = new QListWidgetItem(artist_name, ui->artist_listWidget);
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable); // set checkable flag
             item->setCheckState(Qt::Unchecked);
-            //ui->listWidget->addItem(item);
 
         }
 
@@ -405,20 +404,32 @@ void MainWindow::on_allBtn_stateChanged(int arg1)
 
 void MainWindow::checkAllArtists() {
 
-    for(int i = 0; i < artist_list.size()-1; i++){
+    for(int i = 0; i < artist_list.size(); i++){
         ui->artist_listWidget->item(i)->setCheckState(Qt::Checked);
     }
 }
 
 void MainWindow::uncheckAllArtists() {
-    for(int i = 0; i < artist_list.size()-1; i++){
+    for(int i = 0; i < artist_list.size(); i++){
         ui->artist_listWidget->item(i)->setCheckState(Qt::Unchecked);
     }
 }
 
-void MainWindow::on_artist_listWidget_itemSelectionChanged()
+
+void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
 {
-    allBtn_uncheckedManually = false;
-    ui->allBtn->setCheckState(Qt::Unchecked);
+    int state = item->checkState();
+    QString artist_name;
+
+    if(state == 2){
+        artist_name = item->text();
+        std::cout << artist_name.toStdString();
+    }
+    else{
+        allBtn_uncheckedManually = false;
+        ui->allBtn->setCheckState(Qt::Unchecked);
+        artist_name = item->text();
+        std::cout << artist_name.toStdString();
+    }
 
 }

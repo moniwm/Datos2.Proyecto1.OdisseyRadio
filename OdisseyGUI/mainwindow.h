@@ -42,10 +42,6 @@ private slots:
 
     void on_infoBtn_clicked();
 
-    void on_loadBtn_clicked();
-
-    //void on_allBtn_stateChanged(int arg1);
-
     void on_paginateBtn_clicked();
 
     void on_positionChanged(qint64 position);
@@ -78,7 +74,7 @@ private:
     int const rowHeight = 31; /// Constant variable that stores the height of the table rows
     int const minimumRows = 16; /// Minimum amount of rows without scrolling
     int const minimumTableHeight = 500;
-    int const minimumListHeight = 291;
+    int const minimumListHeight = 361;
 
     int extraRows;
     int heightDifference;

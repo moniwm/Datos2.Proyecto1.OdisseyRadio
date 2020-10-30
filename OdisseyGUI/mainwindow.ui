@@ -8421,9 +8421,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>389</y>
+      <y>460</y>
       <width>261</width>
-      <height>290</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -8436,7 +8436,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>170</y>
+       <y>110</y>
        <width>100</width>
        <height>21</height>
       </rect>
@@ -8449,7 +8449,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>90</y>
+       <y>60</y>
        <width>161</width>
        <height>16</height>
       </rect>
@@ -8462,26 +8462,13 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>80</y>
        <width>201</width>
        <height>23</height>
       </rect>
      </property>
      <property name="value">
       <number>24</number>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loadBtn">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>40</y>
-       <width>112</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load</string>
      </property>
     </widget>
     <widget class="QCheckBox" name="allBtn">
@@ -8507,7 +8494,7 @@
       <x>0</x>
       <y>100</y>
       <width>261</width>
-      <height>291</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="horizontalScrollBarPolicy">

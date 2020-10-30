@@ -108,10 +108,6 @@ void MainWindow::on_infoBtn_clicked() {
 
 }
 
-void MainWindow::on_loadBtn_clicked() {
-    std::cout << "Load library! \n";
-
-}
 
 void MainWindow::on_paginateBtn_clicked() {
     UpdateMemoryPB(); //updates memory progress bar
@@ -469,7 +465,6 @@ void MainWindow::removeTrack(std::string artist_name) {
         current = temp;
     }
 
-    adjustTableSize();
 }
 
 void MainWindow::addTracks(std::string artist_name) {
@@ -488,7 +483,6 @@ void MainWindow::addTracks(std::string artist_name) {
         current = current->getNext();
     }
 
-    adjustTableSize();
 }
 
 void MainWindow::manageTableSize() {
@@ -502,16 +496,6 @@ void MainWindow::manageTableSize() {
 
     ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
 
-    ui->songsList->setRowCount(page_size);
+    //ui->songsList->setRowCount(page_size);
 }
 
-void MainWindow::adjustTableSize() {
-
-    heightDifference = MainWindow::size().height() - minimumHeight();
-    extraRows = heightDifference / rowHeight;
-    page_size = minimumRows + extraRows;
-
-    if(track_list->getSize() < page_size){
-        manageTableSize();
-    }
-}

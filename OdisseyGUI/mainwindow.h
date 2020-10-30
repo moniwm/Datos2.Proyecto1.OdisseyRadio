@@ -86,6 +86,8 @@ private:
 
     bool is_playing, is_slider_pressed;
 
+    bool isInitDone = false;
+
     MP3Player * mp3_player;
 
     LinkedList<Track> *track_list;
@@ -129,5 +131,7 @@ private:
     void checkAllArtists();
 
     void uncheckAllArtists();
+
+    void removeTrack(std::string artist_name);
 
 };

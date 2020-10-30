@@ -153,7 +153,7 @@ public:
 
     }
 
-    void remove(T *node){
+    void remove(NodeLL<T> *node){
 
         NodeLL<T> *currentPtr = this->head;
         NodeLL<T> *nextPtr = currentPtr->getNext();
@@ -180,6 +180,11 @@ public:
 
     int getSize(){
         return this->size;
+    }
+
+    void clear(){
+        head->setNext(nullptr);
+        head = nullptr;
     }
 
 };

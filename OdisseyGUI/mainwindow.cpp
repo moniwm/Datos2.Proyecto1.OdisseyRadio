@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     os = OS::GetInstance();
 
-    track_list = new LinkedList<Track>();
+    track_list = readSmallMetadata();
 
     mem_usage = new MemoryUsage();
 
@@ -67,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent)
     checkAllArtists();
 
     ui->allBtn->setCheckState(Qt::Checked);
+
+    isInitDone = true;
 
 
 }
@@ -202,7 +204,7 @@ void MainWindow::UpdateMemoryPB() {
 }
 
 void MainWindow::loadTracks() {
-    track_list = readSmallMetadata();
+
     ui->songsList->setRowCount(track_list->getSize());
 
     NodeLL<Track> *current = track_list->getFirst();
@@ -418,18 +420,47 @@ void MainWindow::uncheckAllArtists() {
 
 void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
 {
+
     int state = item->checkState();
-    QString artist_name;
+    std::string artist_name = item->text().toStdString();
 
-    if(state == 2){
-        artist_name = item->text();
-        std::cout << artist_name.toStdString();
-    }
-    else{
-        allBtn_uncheckedManually = false;
-        ui->allBtn->setCheckState(Qt::Unchecked);
-        artist_name = item->text();
-        std::cout << artist_name.toStdString();
+    if(isInitDone){
+
+        std::cout << state;
+
+        if(state == 0){
+            allBtn_uncheckedManually = false;
+            ui->allBtn->setCheckState(Qt::Unchecked);
+
+            if(allBtn_uncheckedManually){
+                track_list->clear();
+            }
+            else{
+                removeTrack(artist_name);
+            }
+
+            loadTracks();
+
+        }
     }
 
+
+}
+
+void MainWindow::removeTrack(std::string artist_name) {
+
+    NodeLL<Track> *current = track_list->getFirst();
+    NodeLL<Track> *temp;
+    std::string artist;
+
+    while(current != nullptr){
+        artist = current->getData()->getArtist();
+        temp = current->getNext();
+
+        if(artist == artist_name){
+            track_list->remove(current);
+        }
+
+        current = temp;
+    }
 }

@@ -87,6 +87,7 @@ private:
     bool is_playing, is_slider_pressed;
 
     bool isInitDone = false;
+    bool allBtnPressed = true;
 
     MP3Player * mp3_player;
 
@@ -133,5 +134,11 @@ private:
     void uncheckAllArtists();
 
     void removeTrack(std::string artist_name);
+
+    void addTracks(std::string artist_name);
+
+    void manageTableSize();
+
+    void adjustTableSize();
 
 };

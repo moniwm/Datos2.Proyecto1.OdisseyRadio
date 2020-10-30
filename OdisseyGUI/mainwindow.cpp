@@ -128,17 +128,7 @@ void MainWindow::on_paginateBtn_clicked() {
  */
 void MainWindow::resizeEvent(QResizeEvent *event) {
 
-    heightDifference = MainWindow::size().height() - minimumHeight();
-    extraRows = heightDifference / rowHeight;
-    page_size = minimumRows + extraRows;
-
-    ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
-
-    ui->memory_frame->move(0, init_mframe_posy + heightDifference);
-
-    ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
-
-    //ui->songsList->setRowCount(page_size);
+    manageTableSize();
 }
 
 
@@ -387,6 +377,8 @@ void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
 void MainWindow::on_allBtn_stateChanged(int arg1)
 {
     if(ui->allBtn->isChecked()){
+        allBtnPressed = true;
+        track_list = readSmallMetadata();
         loadTracks();
         checkAllArtists();
         allBtn_uncheckedManually = true;
@@ -394,9 +386,13 @@ void MainWindow::on_allBtn_stateChanged(int arg1)
     }
 
     else{
+        allBtnPressed = false;
         if(allBtn_uncheckedManually){
             uncheckAllArtists();
             allBtn_uncheckedManually = true;
+            ui->songsList->setRowCount(page_size);
+
+            manageTableSize();
         }
 
     }
@@ -426,8 +422,6 @@ void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
 
     if(isInitDone){
 
-        std::cout << state;
-
         if(state == 0){
             allBtn_uncheckedManually = false;
             ui->allBtn->setCheckState(Qt::Unchecked);
@@ -440,6 +434,17 @@ void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
             }
 
             loadTracks();
+
+            allBtnPressed = false;
+
+        }
+
+
+        else{
+            if(!allBtnPressed){
+                addTracks(artist_name);
+                loadTracks();
+            }
 
         }
     }
@@ -462,5 +467,51 @@ void MainWindow::removeTrack(std::string artist_name) {
         }
 
         current = temp;
+    }
+
+    adjustTableSize();
+}
+
+void MainWindow::addTracks(std::string artist_name) {
+    LinkedList<Track> *allTracks = readSmallMetadata();
+    std::string refArtist;
+
+    NodeLL<Track> *current = allTracks->getFirst();
+
+    for(int i = 0; i < allTracks->getSize(); i++){
+        refArtist = current->getData()->getArtist();
+
+        if(refArtist == artist_name){
+            track_list->insertElement(current->getData());
+        }
+
+        current = current->getNext();
+    }
+
+    adjustTableSize();
+}
+
+void MainWindow::manageTableSize() {
+    heightDifference = MainWindow::size().height() - minimumHeight();
+    extraRows = heightDifference / rowHeight;
+    page_size = minimumRows + extraRows;
+
+    ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
+
+    ui->memory_frame->move(0, init_mframe_posy + heightDifference);
+
+    ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
+
+    ui->songsList->setRowCount(page_size);
+}
+
+void MainWindow::adjustTableSize() {
+
+    heightDifference = MainWindow::size().height() - minimumHeight();
+    extraRows = heightDifference / rowHeight;
+    page_size = minimumRows + extraRows;
+
+    if(track_list->getSize() < page_size){
+        manageTableSize();
     }
 }

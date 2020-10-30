@@ -9,6 +9,12 @@
 #include <string>
 #include <sys/resource.h>
 #include <math.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+#ifdef __APPLE__
+#include <mach/mach.h>
+#endif
+
 #include "OS.h"
 
 

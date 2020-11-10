@@ -384,11 +384,11 @@ void MainWindow::on_allBtn_stateChanged(int arg1)
     else{
         allBtnPressed = false;
         if(allBtn_uncheckedManually){
+            track_list->clear();
             uncheckAllArtists();
-            allBtn_uncheckedManually = true;
             ui->songsList->setRowCount(page_size);
-
             manageTableSize();
+
         }
 
     }
@@ -419,6 +419,7 @@ void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
     if(isInitDone){
 
         if(state == 0){
+
             allBtn_uncheckedManually = false;
             ui->allBtn->setCheckState(Qt::Unchecked);
 
@@ -432,6 +433,8 @@ void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
             loadTracks();
 
             allBtnPressed = false;
+
+
 
         }
 

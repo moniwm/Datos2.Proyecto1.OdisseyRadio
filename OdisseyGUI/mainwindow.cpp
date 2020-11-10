@@ -233,6 +233,7 @@ void MainWindow::loadTracks() {
     }
 
     UpdateMemoryPB();
+    manageTableSize();
 
 }
 
@@ -507,7 +508,10 @@ void MainWindow::manageTableSize() {
 
     ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
 
-    //ui->songsList->setRowCount(page_size);
+    if(track_list->getSize() < page_size){
+        ui->songsList->setRowCount(page_size);
+    }
+
 }
 
 double MainWindow::readMemory() {

@@ -176,6 +176,8 @@ public:
             nextPtr = nextPtr->getNext();
         }
 
+        delete node;
+
     }
 
     int getSize(){
@@ -183,8 +185,11 @@ public:
     }
 
     void clear(){
-        head->setNext(nullptr);
-        head = nullptr;
+        int initialListSize = this->size;
+        NodeLL<T> *current = this->head;
+        for(int i = 0; i < initialListSize; i++){
+            remove(head);
+        }
     }
 
 };

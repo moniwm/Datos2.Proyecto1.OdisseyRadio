@@ -137,4 +137,6 @@ private:
 
     void adjustTableSize();
 
+    double readMemory();
+
 };

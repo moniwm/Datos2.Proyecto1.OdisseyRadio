@@ -180,12 +180,14 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
  */
 void MainWindow::UpdateMemoryPB() {
     mem_usage->MemUsage(vm, rss, max_rss);
-    int int_rss = rss;
+    //int int_rss = rss;
+
+    int int_rss  = round(readMemory() / 1024);
     int val = rss / max_rss * 100;
     ui->memoryPB->setValue(val);
     QString text = "Memory usage: ";
     text.append(QString::fromUtf8(to_string(int_rss).c_str()));
-    text.append(" MB");
+    text.append(" KB");
     ui->memoryUsageLabel->setText(text);
 }
 
@@ -225,6 +227,8 @@ void MainWindow::loadTracks() {
 
         current = current->getNext();
     }
+
+    UpdateMemoryPB();
 
 }
 
@@ -500,5 +504,9 @@ void MainWindow::manageTableSize() {
     ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
 
     //ui->songsList->setRowCount(page_size);
+}
+
+double MainWindow::readMemory() {
+    return sizeof(*track_list->getFirst()->getData())*track_list->getSize();
 }
 

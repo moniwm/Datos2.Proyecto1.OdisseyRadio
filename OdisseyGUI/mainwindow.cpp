@@ -6,7 +6,7 @@
   */
 #include "mainwindow.h"
 #include "ListGenerator.h"
-
+#include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setColumnWidth(1, 163);
     ui->songsList->setColumnWidth(2, 100);
     ui->songsList->setColumnWidth(3, 100);
+
 
     extraRows = 0; ///This variable contains the extra amount of rows to be added depending on the window size
 
@@ -50,6 +51,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this,
             SLOT(on_sectionDoubleClicked(QModelIndex)));
+
+    connect(ui->songsList->verticalScrollBar(), SIGNAL(valueChanged(int)), this,
+            SLOT(printScrollBarValue()));
 
     NodeLL<Track> *first = track_list->getFirst();
     current_artist = QString::fromStdString(first->getData()->getArtist());
@@ -508,5 +512,9 @@ void MainWindow::manageTableSize() {
 
 double MainWindow::readMemory() {
     return sizeof(*track_list->getFirst()->getData())*track_list->getSize();
+}
+
+void MainWindow::printScrollBarValue() {
+    std::cout << ui->songsList->verticalScrollBar()->value() << "\n";
 }
 

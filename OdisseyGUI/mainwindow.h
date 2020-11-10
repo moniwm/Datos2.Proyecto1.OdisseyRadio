@@ -62,8 +62,9 @@ private slots:
 
     void on_allBtn_stateChanged(int arg1);
 
-
     void on_artist_listWidget_itemChanged(QListWidgetItem *item);
+
+    void printScrollBarValue();
 
 private:
     MemoryUsage * mem_usage;
@@ -138,5 +139,6 @@ private:
     void adjustTableSize();
 
     double readMemory();
+
 
 };

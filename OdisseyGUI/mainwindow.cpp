@@ -1,11 +1,11 @@
 /**
   * @brief Source file for the GUI of the Odissey Radio application
-  * @author Monica Waterhouse Montoya
+  * @author Monica Waterhouse Montoya, Luis Pedro Morales Rodríguez
   * @since October 9th, 2020
   *
   */
 #include "mainwindow.h"
-#include "ListGenerator.h"
+#include "trackListGenerator.h"
 #include <QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -53,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
             SLOT(on_sectionDoubleClicked(QModelIndex)));
 
     connect(ui->songsList->verticalScrollBar(), SIGNAL(valueChanged(int)), this,
-            SLOT(printScrollBarValue()));
+            SLOT(infiniteScroll()));
 
     NodeLL<Track> *first = track_list->getFirst();
     current_artist = QString::fromStdString(first->getData()->getArtist());
@@ -62,6 +62,9 @@ MainWindow::MainWindow(QWidget *parent)
     current_genre = QString::fromStdString(first->getData()->getGenre());
 
     allBtn_uncheckedManually = true;
+
+    paginated = false;
+
 
     SetPlayBtn();
     SetPreviousBtn();
@@ -73,6 +76,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->allBtn->setCheckState(Qt::Checked);
 
     isInitDone = true;
+    firstElementIndex = 0;
+    maxTrackSize = track_list->getSize();
 
 
 }
@@ -114,12 +119,26 @@ void MainWindow::on_infoBtn_clicked() {
 
 
 void MainWindow::on_paginateBtn_clicked() {
-    UpdateMemoryPB(); //updates memory progress bar
-    if (ui->paginateBtn->isChecked()) {
-        std::cout << "Paginate memory \n";
-    } else {
-        std::cout << "Not paginate \n";
+    if(ui->allBtn->isChecked()){
+        if(ui->paginateBtn->isChecked()){
+            track_list = paginate(firstElementIndex, page_size);
+            paginated = true;
+        }
+
+        else{
+            paginated = false;
+            track_list = readSmallMetadata();
+        }
+
+        loadTracks();
     }
+
+    else{
+        ui->paginateBtn->setChecked(false);
+    }
+
+    UpdateMemoryPB(); //updates memory progress bar
+
 }
 
 /**
@@ -129,6 +148,10 @@ void MainWindow::on_paginateBtn_clicked() {
 void MainWindow::resizeEvent(QResizeEvent *event) {
 
     manageTableSize();
+    if(ui->paginateBtn->isChecked()){
+        track_list = paginate(firstElementIndex, page_size);
+        loadTracks();
+    }
 }
 
 
@@ -234,6 +257,7 @@ void MainWindow::loadTracks() {
 
     UpdateMemoryPB();
     manageTableSize();
+
 
 }
 
@@ -382,6 +406,7 @@ void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
 void MainWindow::on_allBtn_stateChanged(int arg1)
 {
     if(ui->allBtn->isChecked()){
+        firstElementIndex = 0;
         allBtnPressed = true;
         track_list = readSmallMetadata();
         loadTracks();
@@ -392,6 +417,8 @@ void MainWindow::on_allBtn_stateChanged(int arg1)
 
     else{
         allBtnPressed = false;
+        ui->paginateBtn->setChecked(false);
+        paginated = false;
         if(allBtn_uncheckedManually){
             track_list->clear();
             uncheckAllArtists();
@@ -424,6 +451,11 @@ void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
 
     int state = item->checkState();
     std::string artist_name = item->text().toStdString();
+
+    if(paginated == true){
+        track_list = readSmallMetadata();
+        paginated = false;
+    }
 
     if(isInitDone){
 
@@ -518,7 +550,22 @@ double MainWindow::readMemory() {
     return sizeof(*track_list->getFirst()->getData())*track_list->getSize();
 }
 
-void MainWindow::printScrollBarValue() {
-    std::cout << ui->songsList->verticalScrollBar()->value() << "\n";
+void MainWindow::infiniteScroll() {
+    if(ui->paginateBtn->isChecked()){
+        int sb_position = ui->songsList->verticalScrollBar()->value();
+        int maximum_pos = ui->songsList->verticalScrollBar()->maximum();
+        if(sb_position == maximum_pos && firstElementIndex < maxTrackSize-page_size){
+            firstElementIndex = firstElementIndex + page_size;
+            track_list = paginate(firstElementIndex, page_size);
+            loadTracks();
+            ui->songsList->verticalScrollBar()->setValue(int(2*maximum_pos/3));
+        }
+        else if(sb_position == 0 && firstElementIndex-page_size >= 0){
+            firstElementIndex = firstElementIndex - page_size;
+            track_list = paginate(firstElementIndex, page_size);
+            loadTracks();
+            ui->songsList->verticalScrollBar()->setValue(maximum_pos-int(2*maximum_pos/3));
+        }
+    }
 }
 

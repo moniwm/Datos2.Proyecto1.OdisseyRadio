@@ -64,7 +64,7 @@ private slots:
 
     void on_artist_listWidget_itemChanged(QListWidgetItem *item);
 
-    void printScrollBarValue();
+    void infiniteScroll();
 
 private:
     MemoryUsage * mem_usage;
@@ -80,8 +80,9 @@ private:
     int extraRows;
     int heightDifference;
     int page_size;
+    int firstElementIndex, maxTrackSize;
 
-    bool is_playing, is_slider_pressed;
+    bool is_playing, is_slider_pressed, allBtn_uncheckedManually, paginated;
 
     bool isInitDone = false;
     bool allBtnPressed = true;
@@ -112,7 +113,6 @@ private:
 
     int init_mframe_posy;
 
-    bool allBtn_uncheckedManually;
 
     void SetPlayBtn();
 

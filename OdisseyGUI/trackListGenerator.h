@@ -88,8 +88,29 @@ LinkedList<Track> *readSmallMetadata(){
         }
     }
     return tracks;
-
-
 }
+
+LinkedList<Track> *paginate(int index, int pageSize){
+
+    LinkedList<Track> *allSongs = readSmallMetadata();
+    LinkedList<Track> *paginated = new LinkedList<Track>();
+
+    NodeLL<Track> *current = allSongs->getFirst();
+
+    int maximumSize = pageSize*3;
+
+    int i = 0;
+
+    while(paginated->getSize() <= maximumSize && current != nullptr){
+        if( i>= index){
+            paginated->insertElement(current->getData());
+        }
+        current = current->getNext();
+        i++;
+    }
+
+    return paginated;
+}
+
 
 #endif //ODISSEYRADIO_LISTGENERATOR_H

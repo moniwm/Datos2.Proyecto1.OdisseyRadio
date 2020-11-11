@@ -40,16 +40,16 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>70</y>
-      <width>81</width>
+      <x>10</x>
+      <y>80</y>
+      <width>51</width>
       <height>16</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Avenir Next</family>
-      <pointsize>16</pointsize>
+      <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -8393,13 +8393,13 @@
      </property>
     </column>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="nameLabel">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>20</y>
-      <width>191</width>
-      <height>20</height>
+      <x>60</x>
+      <y>10</y>
+      <width>131</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -8414,7 +8414,13 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>ODISSEY RADIO</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>images/Logo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QFrame" name="memory_frame">
@@ -8450,7 +8456,7 @@
       <rect>
        <x>10</x>
        <y>60</y>
-       <width>161</width>
+       <width>231</width>
        <height>16</height>
       </rect>
      </property>

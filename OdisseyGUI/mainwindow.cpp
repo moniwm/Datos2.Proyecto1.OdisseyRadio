@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->songsList->setColumnWidth(2, 100);
     ui->songsList->setColumnWidth(3, 100);
 
+    QPixmap logo("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/Logo.png");
+    ui->nameLabel->setPixmap(logo);
 
     extraRows = 0; ///This variable contains the extra amount of rows to be added depending on the window size
 
@@ -59,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     current_artist = QString::fromStdString(first->getData()->getArtist());
     current_title = QString::fromStdString(first->getData()->getTitle());
     current_length = QString::fromStdString(first->getData()->getLength());
-    current_genre = QString::fromStdString(first->getData()->getGenre());
+    current_genre = QString::fromStdString(first->getData()->getGenre()).mid(16);
 
     allBtn_uncheckedManually = true;
 
@@ -78,6 +80,7 @@ MainWindow::MainWindow(QWidget *parent)
     isInitDone = true;
     firstElementIndex = 0;
     maxTrackSize = track_list->getSize();
+
 
 
 }
@@ -209,8 +212,8 @@ void MainWindow::UpdateMemoryPB() {
     mem_usage->MemUsage(vm, rss, max_rss);
     //int int_rss = rss;
 
-    int int_rss  = round(readMemory() / 1024);
-    int val = rss / max_rss * 100;
+    float int_rss  = readMemory() / 1024.00;
+    int val = int_rss / 594 * 100;
     ui->memoryPB->setValue(val);
     QString text = "Memory usage: ";
     text.append(QString::fromUtf8(to_string(int_rss).c_str()));

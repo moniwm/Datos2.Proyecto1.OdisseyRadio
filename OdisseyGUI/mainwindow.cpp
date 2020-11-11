@@ -8,20 +8,13 @@
 #include "trackListGenerator.h"
 #include <QScrollBar>
 
-MainWindow::MainWindow(QWidget *parent)
-        : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+
     ui->setupUi(this);
     Ui::MainWindow **ppUi = &ui;
+    os = OS::GetInstance(); // Is used to detect in which operating system the program is currently running
 
-    os = OS::GetInstance();
-
-    track_list = readSmallMetadata();
-
-    mem_usage = new MemoryUsage();
-
-    //setWindowFlags(Qt::Widget | Qt::FramelessWindowHint); // Set borderless window
-
-    ///This block of code sets the width for each one of the columns of the table
+    // -------------------------------- Code related to GUI elements modifications ----------------------------
 
     ui->songsList->setColumnWidth(0, 275);
     ui->songsList->setColumnWidth(1, 163);
@@ -31,31 +24,25 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap logo("/Users/moniwaterhouse/CLionProjects/OdisseyRadio/OdisseyGUI/images/Logo.png");
     ui->nameLabel->setPixmap(logo);
 
-    extraRows = 0; ///This variable contains the extra amount of rows to be added depending on the window size
+    ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->songsList->hideColumn(4); // This row contains the track id and is used to access the mp3 file related to that track
+
+    init_mframe_posy = ui->memory_frame->pos().y(); // The initial position of the frame that contains the memory usage information
+
+    // -------------------------------- Variables initialization ----------------------------------------------
+
+    track_list = readSmallMetadata(); // Obtains the list with all the tracks available in the csv file
 
     mp3_player = new MP3Player(ppUi);
     MP3Player **pp_mp3_player = &mp3_player;
-
-    init_mframe_posy = ui->memory_frame->pos().y();
-
     duration_subject = new DurationSubject();
     duration_subject->Attach(pp_mp3_player);
-
     is_playing = is_slider_pressed = false;
 
-    connect(mp3_player->getPlayer(), SIGNAL(positionChanged(qint64)), this, SLOT(on_positionChanged(qint64)));
-    connect(mp3_player->getPlayer(), SIGNAL(durationChanged(qint64)), this, SLOT(on_durationChanged(qint64)));
-
-    ui->songsList->hideColumn(4);
-
-    this->loadTracks();
-
-    ui->songsList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this,
-            SLOT(on_sectionDoubleClicked(QModelIndex)));
-
-    connect(ui->songsList->verticalScrollBar(), SIGNAL(valueChanged(int)), this,
-            SLOT(infiniteScroll()));
+    firstElementIndex = 0;
+    maxTrackSize = track_list->getSize();
+    maxMemory = readMemory()/1024.0;
 
     NodeLL<Track> *first = track_list->getFirst();
     current_artist = QString::fromStdString(first->getData()->getArtist());
@@ -63,37 +50,50 @@ MainWindow::MainWindow(QWidget *parent)
     current_length = QString::fromStdString(first->getData()->getLength());
     current_genre = QString::fromStdString(first->getData()->getGenre()).mid(16);
 
+    this->loadTracks();
+
     allBtn_uncheckedManually = true;
-
     paginated = false;
-
+    ui->allBtn->setCheckState(Qt::Checked);
 
     SetPlayBtn();
     SetPreviousBtn();
     SetNextBtn();
-    UpdateMemoryPB();
     getArtistList(track_list);
     checkAllArtists();
-
-    ui->allBtn->setCheckState(Qt::Checked);
-
-    isInitDone = true;
-    firstElementIndex = 0;
-    maxTrackSize = track_list->getSize();
-    maxMemory = readMemory()/1024.0;
-
     UpdateMemoryPB();
 
+    // ---------------------------------------- Signals and slots ----------------------------------------------------
+    connect(mp3_player->getPlayer(), SIGNAL(positionChanged(qint64)), this,
+            SLOT(on_positionChanged(qint64)));
+    connect(mp3_player->getPlayer(), SIGNAL(durationChanged(qint64)), this,
+            SLOT(on_durationChanged(qint64)));
+    connect(ui->songsList, SIGNAL(doubleClicked(const QModelIndex &)), this,
+            SLOT(on_sectionDoubleClicked(QModelIndex)));
+    connect(ui->songsList->verticalScrollBar(), SIGNAL(valueChanged(int)), this,
+            SLOT(infiniteScroll()));
+
+    isInitDone = true;
 }
 
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+
+// --------------------------------------- Play songs related methods ----------------------------------------------
+
+/*!
+ * Notifies when the fast forward or backward the song that is now playing
+ * @param duration
+ */
 void MainWindow::on_durationChanged(qint64 duration) {
     duration_subject->Notify(duration);
 }
 
+/*!
+ * Controls when to play or pause the song that is currently selected
+ */
 void MainWindow::on_playBtn_clicked() {
 
     if (is_playing) {
@@ -114,48 +114,14 @@ void MainWindow::on_playBtn_clicked() {
     is_playing = !is_playing;
 }
 
+/*!
+ * Opens the information window
+ */
 void MainWindow::on_infoBtn_clicked() {
     information = new Information(this);
     information->getInformation(this->current_title, this->current_genre, this->current_artist, this->current_length);
     information->show();
 
-}
-
-
-void MainWindow::on_paginateBtn_clicked() {
-    if(ui->allBtn->isChecked()){
-        if(ui->paginateBtn->isChecked()){
-            track_list = paginate(firstElementIndex, page_size);
-            paginated = true;
-        }
-
-        else{
-            paginated = false;
-            track_list = readSmallMetadata();
-        }
-
-        loadTracks();
-    }
-
-    else{
-        ui->paginateBtn->setChecked(false);
-    }
-
-    UpdateMemoryPB(); //updates memory progress bar
-
-}
-
-/**
- * @brief This method calculates the amount of rows visible to the client without scrolling the list
- * @param event
- */
-void MainWindow::resizeEvent(QResizeEvent *event) {
-
-    manageTableSize();
-    if(ui->paginateBtn->isChecked()){
-        track_list = paginate(firstElementIndex, page_size);
-        loadTracks();
-    }
 }
 
 
@@ -206,62 +172,6 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
     return (mn.length() == 1 ? "0" + mn : mn) + ":" + (sc.length() == 1 ? "0" + sc : sc);
 }
 
-/**
- * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
- */
-void MainWindow::UpdateMemoryPB() {
-
-    float memoryUsed  = readMemory() / 1024.00;
-    int val = memoryUsed / maxMemory * 100;
-    ui->memoryPB->setValue(val);
-    QString text = "Memory usage: ";
-    text.append(QString::fromUtf8(to_string(memoryUsed).c_str()));
-    text.append(" KB");
-    ui->memoryUsageLabel->setText(text);
-}
-
-void MainWindow::loadTracks() {
-
-    ui->songsList->setRowCount(track_list->getSize());
-
-    NodeLL<Track> *current = track_list->getFirst();
-    QString title;
-    QString length;
-    QString genre;
-    QString artist;
-    QString trackID;
-
-    for (int i = 0; i < track_list->getSize(); i++) {
-        title = QString::fromStdString(current->getData()->getTitle());
-        length = QString::fromStdString(current->getData()->getLength());
-        genre = QString::fromStdString(current->getData()->getGenre()).mid(16);
-        artist = QString::fromStdString(current->getData()->getArtist());
-        trackID = QString::fromStdString(current->getData()->getTrackID());
-
-
-        for (int j = 0; j < 5; j++) {
-            if (j == 0) {
-                ui->songsList->setItem(i, j, new QTableWidgetItem(title));
-            } else if (j == 1) {
-                ui->songsList->setItem(i, j, new QTableWidgetItem(artist));
-            } else if (j == 2) {
-                ui->songsList->setItem(i, j, new QTableWidgetItem(length));
-            } else if (j == 3) {
-                ui->songsList->setItem(i, j, new QTableWidgetItem(genre));
-            } else {
-                ui->songsList->setItem(i, j, new QTableWidgetItem(trackID));
-            }
-
-        }
-
-        current = current->getNext();
-    }
-
-    UpdateMemoryPB();
-    manageTableSize();
-
-
-}
 
 /*!
  * When a row is double clicked, calls method that sets the new playing track
@@ -311,6 +221,9 @@ void MainWindow::SetPauseBtn() {
     }
 }
 
+/*!
+ * Sets icon for next song button
+ */
 void MainWindow::SetNextBtn() {
     if (os->isLinux()) {
         QPixmap next(
@@ -324,6 +237,9 @@ void MainWindow::SetNextBtn() {
     }
 }
 
+/*!
+ * Sets icon for previous song button
+ */
 void MainWindow::SetPreviousBtn() {
     if (os->isLinux()) {
         QPixmap previous(
@@ -337,7 +253,9 @@ void MainWindow::SetPreviousBtn() {
     }
 }
 
-
+/*!
+ * Plays next song
+ */
 void MainWindow::on_nextBtn_clicked()
 {
     if (!is_playing)
@@ -349,6 +267,9 @@ void MainWindow::on_nextBtn_clicked()
     SetInfoWin(new_row);
 }
 
+/*!
+ * Plays previous song
+ */
 void MainWindow::on_previousBtn_clicked()
 {
     if (mp3_player->getPlayer()->position() < 1000){
@@ -381,6 +302,14 @@ void MainWindow::SetInfoWin(int &cell_row) {
     current_genre = track_genre->text();
 }
 
+// ------------------------------------- Artist menu ----------------------------------------
+
+/*!
+ * Reads the track list with all tracks loaded and takes the name of each one of the artist in order to display
+ * them in a menu and the user can add or remove tracks from the list.
+ *
+ * @param allTracks is the linked list that contains all the tracks
+ */
 void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
     NodeLL<Track> *current = allTracks->getFirst();
     std::string current_artist;
@@ -405,6 +334,10 @@ void MainWindow::getArtistList(LinkedList<Track> *allTracks) {
 
 }
 
+/*!
+ * Detects when the state of the all artist button has change
+ * @param arg1
+ */
 void MainWindow::on_allBtn_stateChanged(int arg1)
 {
     if(ui->allBtn->isChecked()){
@@ -433,7 +366,9 @@ void MainWindow::on_allBtn_stateChanged(int arg1)
 
 }
 
-
+/*!
+ * Checks all the artists names' boxes
+ */
 void MainWindow::checkAllArtists() {
 
     for(int i = 0; i < artist_list.size(); i++){
@@ -441,25 +376,31 @@ void MainWindow::checkAllArtists() {
     }
 }
 
+/*!
+ * Unchecks all the artists names' boxes
+ */
 void MainWindow::uncheckAllArtists() {
     for(int i = 0; i < artist_list.size(); i++){
         ui->artist_listWidget->item(i)->setCheckState(Qt::Unchecked);
     }
 }
 
-
+/*!
+ * Detects when a the check box of an artist has changed
+ * @param item the artist which check box state changed
+ */
 void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
 {
 
     int state = item->checkState();
     std::string artist_name = item->text().toStdString();
 
-    if(paginated == true){
+    if(paginated == true){ // This conditional avoids unwanted behavior when paginating
         track_list = readSmallMetadata();
         paginated = false;
     }
 
-    if(isInitDone){
+    if(isInitDone){ // This conditional is used to make sure the next code of block is run only when the program is completely set
 
         if(state == 0){
 
@@ -494,60 +435,53 @@ void MainWindow::on_artist_listWidget_itemChanged(QListWidgetItem *item)
 
 }
 
-void MainWindow::removeTrack(std::string artist_name) {
 
-    NodeLL<Track> *current = track_list->getFirst();
-    NodeLL<Track> *temp;
-    std::string artist;
+// -------------------------------------- Memory management ---------------------------------
 
-    while(current != nullptr){
-        artist = current->getData()->getArtist();
-        temp = current->getNext();
-
-        if(artist == artist_name){
-            track_list->remove(current);
+/*!
+ * Control the pagination of the track linked list
+ */
+void MainWindow::on_paginateBtn_clicked() {
+    if(ui->allBtn->isChecked()){
+        if(ui->paginateBtn->isChecked()){
+            track_list = paginate(firstElementIndex, page_size);
+            paginated = true;
         }
 
-        current = temp;
-    }
-
-}
-
-void MainWindow::addTracks(std::string artist_name) {
-    LinkedList<Track> *allTracks = readSmallMetadata();
-    std::string refArtist;
-
-    NodeLL<Track> *current = allTracks->getFirst();
-
-    for(int i = 0; i < allTracks->getSize(); i++){
-        refArtist = current->getData()->getArtist();
-
-        if(refArtist == artist_name){
-            track_list->insertElement(current->getData());
+        else{
+            paginated = false;
+            track_list = readSmallMetadata();
         }
 
-        current = current->getNext();
+        loadTracks();
     }
+
+    else{
+        ui->paginateBtn->setChecked(false);
+    }
+
+    UpdateMemoryPB(); //updates memory progress bar
 
 }
 
-void MainWindow::manageTableSize() {
-    heightDifference = MainWindow::size().height() - minimumHeight();
-    extraRows = heightDifference / rowHeight;
-    page_size = minimumRows + extraRows;
+/*!
+ * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
+ */
+void MainWindow::UpdateMemoryPB() {
 
-    ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
-
-    ui->memory_frame->move(0, init_mframe_posy + heightDifference);
-
-    ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
-
-    if(track_list->getSize() < page_size){
-        ui->songsList->setRowCount(page_size);
-    }
-
+    float memoryUsed  = readMemory() / 1024.00;
+    int val = memoryUsed / maxMemory * 100;
+    ui->memoryPB->setValue(val);
+    QString text = "Memory usage: ";
+    text.append(QString::fromUtf8(to_string(memoryUsed).c_str()));
+    text.append(" KB");
+    ui->memoryUsageLabel->setText(text);
 }
 
+/*!
+ * Reads the memory consumed by the track linked list
+ * @return
+ */
 double MainWindow::readMemory() {
     return sizeof(*track_list->getFirst()->getData())*track_list->getSize();
 }
@@ -571,3 +505,129 @@ void MainWindow::infiniteScroll() {
     }
 }
 
+
+// --------------------------------- Track list management ----------------------------------
+
+/*!
+ * This method calculates the amount of rows visible to the client without scrolling the list
+ * @param event
+ */
+void MainWindow::resizeEvent(QResizeEvent *event) {
+
+    manageTableSize();
+    if(ui->paginateBtn->isChecked()){
+        track_list = paginate(firstElementIndex, page_size);
+        loadTracks();
+    }
+}
+
+/*!
+ * Fills the table view with all the information from the track linked list
+ */
+void MainWindow::loadTracks() {
+
+    ui->songsList->setRowCount(track_list->getSize());
+
+    NodeLL<Track> *current = track_list->getFirst();
+    QString title;
+    QString length;
+    QString genre;
+    QString artist;
+    QString trackID;
+
+    for (int i = 0; i < track_list->getSize(); i++) {
+        title = QString::fromStdString(current->getData()->getTitle());
+        length = QString::fromStdString(current->getData()->getLength());
+        genre = QString::fromStdString(current->getData()->getGenre()).mid(16);
+        artist = QString::fromStdString(current->getData()->getArtist());
+        trackID = QString::fromStdString(current->getData()->getTrackID());
+
+
+        for (int j = 0; j < 5; j++) {
+            if (j == 0) {
+                ui->songsList->setItem(i, j, new QTableWidgetItem(title));
+            } else if (j == 1) {
+                ui->songsList->setItem(i, j, new QTableWidgetItem(artist));
+            } else if (j == 2) {
+                ui->songsList->setItem(i, j, new QTableWidgetItem(length));
+            } else if (j == 3) {
+                ui->songsList->setItem(i, j, new QTableWidgetItem(genre));
+            } else {
+                ui->songsList->setItem(i, j, new QTableWidgetItem(trackID));
+            }
+
+        }
+
+        current = current->getNext();
+    }
+
+    UpdateMemoryPB();
+    manageTableSize();
+
+
+}
+
+/*!
+ * Removes tracks when an artist check box is uncheked
+ * @param artist_name this variable is use as a key to know which tracks has to be removed from the linked list
+ */
+void MainWindow::removeTrack(std::string artist_name) {
+
+    NodeLL<Track> *current = track_list->getFirst();
+    NodeLL<Track> *temp;
+    std::string artist;
+
+    while(current != nullptr){
+        artist = current->getData()->getArtist();
+        temp = current->getNext();
+
+        if(artist == artist_name){
+            track_list->remove(current);
+        }
+
+        current = temp;
+    }
+
+}
+
+/*!
+ * Adds tracks when an artist check box is uncheked
+ * @param artist_name artist_name this variable is use as a key to know which tracks has to be added to the linked list
+ */
+void MainWindow::addTracks(std::string artist_name) {
+    LinkedList<Track> *allTracks = readSmallMetadata();
+    std::string refArtist;
+
+    NodeLL<Track> *current = allTracks->getFirst();
+
+    for(int i = 0; i < allTracks->getSize(); i++){
+        refArtist = current->getData()->getArtist();
+
+        if(refArtist == artist_name){
+            track_list->insertElement(current->getData());
+        }
+
+        current = current->getNext();
+    }
+
+}
+
+/*!
+ * Controls the table size and row count when the main window is resized
+ */
+void MainWindow::manageTableSize() {
+    heightDifference = MainWindow::size().height() - minimumHeight();
+    extraRows = heightDifference / rowHeight;
+    page_size = minimumRows + extraRows;
+
+    ui->songsList->setFixedHeight(minimumTableHeight + heightDifference);
+
+    ui->memory_frame->move(0, init_mframe_posy + heightDifference);
+
+    ui->artist_listWidget->setFixedHeight(minimumListHeight + heightDifference);
+
+    if(track_list->getSize() < page_size){
+        ui->songsList->setRowCount(page_size);
+    }
+
+}

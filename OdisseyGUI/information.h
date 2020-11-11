@@ -1,3 +1,9 @@
+/**
+ * @brief This class creates a window that shows the information of the track that is currently playing
+ * @author Monica Waterhouse
+ *
+ */
+
 #ifndef INFORMATION_H
 #define INFORMATION_H
 

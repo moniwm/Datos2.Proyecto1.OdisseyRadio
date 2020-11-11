@@ -1,3 +1,12 @@
+/*!
+ * @brief This file contains a method that reads a csv file that contains the track metadata to obtain a linked list
+ * with all the metadata ordered by tracks. It also has a method that return a track linked list paginated.
+ *
+ * @author Mónica Waterhouse
+ * @version 1.0
+ *
+ */
+
 #include <string>
 #include <fstream>
 #include <utility> // std::pair
@@ -8,13 +17,17 @@
 #ifndef ODISSEYRADIO_LISTGENERATOR_H
 #define ODISSEYRADIO_LISTGENERATOR_H
 
+/*!
+ * Method that reads a csv file line by line. The rows represent each one of the tracks and the columns the needed information
+ * to create a track object.
+ *
+ * @return A linked list which nodes' data consist of track object type
+ */
+
 LinkedList<Track> *readSmallMetadata(){
 
     LinkedList<Track> *tracks = new LinkedList<Track>();
 
-
-    //std::ifstream sourceFile("../cmake-build-debug/SmallMetaData.csv");
-    //string source = "/home/luispedro/Documents/TEC/Semestre III/Algoritmos y Estructuras de Datos 2/project1_resources/fma_metadata/SmallMetadata.csv";
     OS * os = OS::GetInstance();
     string small_metadata;
     if (os->isLinux())
@@ -37,13 +50,10 @@ LinkedList<Track> *readSmallMetadata(){
 
             while(std::getline(sourceFile, line)){
 
-                // Create a stringstream of the current line
-                std::stringstream ss(line);
+                std::stringstream ss(line); /// Create a stringstream of the current line
 
-                // Keep track of the current column index
 
-                // Extract each integer
-                int colIdx = 0;
+                int colIdx = 0; /// Keep track of the current column index
 
                 Track *track = new Track();
 
@@ -78,11 +88,10 @@ LinkedList<Track> *readSmallMetadata(){
                 title = track->getTitle();
                 bool genreStatus = (genre.find("genre_title") != std::string::npos);
 
+                /// This conditional is used to add only those tracks that have a valid title and genre
                 if(genreStatus && title.size()>0 && genre.size()>0){
                     tracks->insertElement(track);
                 }
-
-
 
             }
         }
@@ -90,9 +99,16 @@ LinkedList<Track> *readSmallMetadata(){
     return tracks;
 }
 
+/*!
+ * This method paginates the tracks by creating a track linked list in order to safe memory
+ * @param index represents the real index of the first track that is currently in the paginated list
+ *        to keep track of which tracks must be added and deleted when the scroll bar reaches the top or the bottom
+ * @param pageSize represents the amount of tracks that can be added in one page
+ * @return a track linked list which size is equivalent to 3 times the size of the page
+ */
 LinkedList<Track> *paginate(int index, int pageSize){
 
-    LinkedList<Track> *allSongs = readSmallMetadata();
+    LinkedList<Track> *allSongs = readSmallMetadata(); 
     LinkedList<Track> *paginated = new LinkedList<Track>();
 
     NodeLL<Track> *current = allSongs->getFirst();

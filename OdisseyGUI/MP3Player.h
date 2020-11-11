@@ -1,6 +1,6 @@
-//
-// Created by Luis Pedro Morales on 19/10/20.
-//
+/**
+ * @author Luis Pedro Morales Rodríguez
+ */
 #include <QString>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>

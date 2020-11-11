@@ -1,7 +1,7 @@
-//
-// Created by Luis Pedro Morales on 19/10/20.
-//Class in charge of providing methods to play, pause, fast-forward/backward the selected song
-//
+/**
+ * @brief Class in charge of providing methods to play, pause, fast-forward/backward the selected song
+ * @author Luis Pedro Morales Rodríguez
+ */
 
 #include "MP3Player.h"
 

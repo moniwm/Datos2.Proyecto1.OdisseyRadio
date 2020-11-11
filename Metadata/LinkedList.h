@@ -10,7 +10,7 @@
 #include <iostream>
 
 template <typename T>
-/**
+/*!
  * The NodeLL class represents each node of a linked list.
  * @tparam T The data type that will be stored in the node
  */
@@ -31,7 +31,7 @@ public:
         delete this;
     }
 
-    /**
+    /*!
      *
      * @return returns the data stored in the node
      */
@@ -40,7 +40,7 @@ public:
         return this->data;
     }
 
-    /**
+    /*!
      *
      * @return returns a pointer to the adjacent node
      */
@@ -56,7 +56,7 @@ public:
 };
 
 template <typename T>
-/**
+/*!
  * This class contains the structure to create a basic Linked List
  * @tparam T allows to create linked lists with different data types
  */
@@ -76,7 +76,7 @@ public:
         delete this;
     }
 
-    /**
+    /*!
      *
      * @param data the data value that will be stored in a node at the end of the list
      */
@@ -101,7 +101,7 @@ public:
         return;
     }
 
-    /**
+    /*!
      *
      * @param data the value of the data the user wants to look for
      * @return true if the data exists in the list, otherwise it return false
@@ -121,37 +121,9 @@ public:
         return this->head;
     }
 
-    /**
-     *
-     * @param data the value of the data that the user wants to eliminate and
+    /*!
+     * @param Node that the user wants to eliminate from the list
      */
-    void remove(int index){
-
-        NodeLL<T> *currentPtr = this->head;
-        NodeLL<T> *nextPtr = currentPtr->getNext();
-        
-        int position = 1;
-
-        if(index == 0){
-            this->head = head->getNext();
-            this->size--;
-            return;
-        }
-
-        while (nextPtr != nullptr){
-
-            if(index == position) {
-                currentPtr->setNext(nextPtr->getNext());
-                this->size--;
-                return;
-            }
-            
-            position++;
-            currentPtr = currentPtr->getNext();
-            nextPtr = nextPtr->getNext();
-        }
-
-    }
 
     void remove(NodeLL<T> *node){
 
@@ -180,10 +152,17 @@ public:
 
     }
 
+    /*!
+     *
+     * @return  the current size of the linked list
+     */
     int getSize(){
         return this->size;
     }
 
+    /*!
+     * Removes all the elements from the linked list
+     */
     void clear(){
         int initialListSize = this->size;
         NodeLL<T> *current = this->head;

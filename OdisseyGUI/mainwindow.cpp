@@ -80,8 +80,9 @@ MainWindow::MainWindow(QWidget *parent)
     isInitDone = true;
     firstElementIndex = 0;
     maxTrackSize = track_list->getSize();
+    maxMemory = readMemory()/1024.0;
 
-
+    UpdateMemoryPB();
 
 }
 
@@ -209,14 +210,12 @@ QString MainWindow::SecondsToMinutes(qint64 seconds) {
  * Updates the memory progress bar indicating the percentage of resident set size memory related with the max rss
  */
 void MainWindow::UpdateMemoryPB() {
-    mem_usage->MemUsage(vm, rss, max_rss);
-    //int int_rss = rss;
 
-    float int_rss  = readMemory() / 1024.00;
-    int val = int_rss / 594 * 100;
+    float memoryUsed  = readMemory() / 1024.00;
+    int val = memoryUsed / maxMemory * 100;
     ui->memoryPB->setValue(val);
     QString text = "Memory usage: ";
-    text.append(QString::fromUtf8(to_string(int_rss).c_str()));
+    text.append(QString::fromUtf8(to_string(memoryUsed).c_str()));
     text.append(" KB");
     ui->memoryUsageLabel->setText(text);
 }

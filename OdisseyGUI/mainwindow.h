@@ -80,7 +80,7 @@ private:
     int extraRows;
     int heightDifference;
     int page_size;
-    int firstElementIndex, maxTrackSize;
+    int firstElementIndex, maxTrackSize, maxMemory;
 
     bool is_playing, is_slider_pressed, allBtn_uncheckedManually, paginated;
 

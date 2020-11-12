@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['updateslider_22',['UpdateSlider',['../classMP3Player.html#a812b59379efc39865d8602898b8a7abf',1,'MP3Player']]]
+  ['notify_43',['Notify',['../classDurationSubject.html#acffe28bb787d7d489ce84502fef31560',1,'DurationSubject']]]
 ];

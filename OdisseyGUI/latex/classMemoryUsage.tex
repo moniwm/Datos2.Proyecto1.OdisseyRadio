@@ -1,11 +1,45 @@
 \hypertarget{classMemoryUsage}{}\doxysection{Memory\+Usage Class Reference}
 \label{classMemoryUsage}\index{MemoryUsage@{MemoryUsage}}
+
+
+{\ttfamily \#include $<$Memory\+Usage.\+h$>$}
+
+
+
+Collaboration diagram for Memory\+Usage\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classMemoryUsage_a17940281ff74392ce1a6617fb2e3058f}\label{classMemoryUsage_a17940281ff74392ce1a6617fb2e3058f}} 
-void {\bfseries Mem\+Usage} (double \&vm\+\_\+usage, double \&resident\+\_\+set, double \&max\+\_\+rss)
+void \mbox{\hyperlink{classMemoryUsage_a17940281ff74392ce1a6617fb2e3058f}{Mem\+Usage}} (double \&vm\+\_\+usage, double \&resident\+\_\+set, double \&max\+\_\+rss)
 \end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMemoryUsage_a89564aaf9ffc9ed748825fcbb345c51d}\label{classMemoryUsage_a89564aaf9ffc9ed748825fcbb345c51d}} 
+\mbox{\hyperlink{classOS}{OS}} $\ast$ {\bfseries os}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that implements method that check for memory usage 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMemoryUsage_a17940281ff74392ce1a6617fb2e3058f}\label{classMemoryUsage_a17940281ff74392ce1a6617fb2e3058f}} 
+\index{MemoryUsage@{MemoryUsage}!MemUsage@{MemUsage}}
+\index{MemUsage@{MemUsage}!MemoryUsage@{MemoryUsage}}
+\doxysubsubsection{\texorpdfstring{MemUsage()}{MemUsage()}}
+{\footnotesize\ttfamily void Memory\+Usage\+::\+Mem\+Usage (\begin{DoxyParamCaption}\item[{double \&}]{vm\+\_\+usage,  }\item[{double \&}]{resident\+\_\+set,  }\item[{double \&}]{max\+\_\+rss }\end{DoxyParamCaption})}
+
+Checks the amount of memory usage, resident set size and maximum resident set size (in MB) 
+\begin{DoxyParams}{Parameters}
+{\em vm\+\_\+usage} & \\
+\hline
+{\em resident\+\_\+set} & \\
+\hline
+{\em max\+\_\+rss} & \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

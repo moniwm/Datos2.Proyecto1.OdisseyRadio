@@ -1,0 +1,59 @@
+\hypertarget{classInformation}{}\doxysection{Information Class Reference}
+\label{classInformation}\index{Information@{Information}}
+
+
+Inheritance diagram for Information\+:
+% FIG 0
+
+
+Collaboration diagram for Information\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classInformation_ad19c0f45aab3cfd2196edccc5eb19bc9}{Information}} (Q\+Widget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em This class creates a window that shows the information of the track that is currently playing. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classInformation_ab32877d8a3d36096422490caec68dc2d}{get\+Information}} (Q\+String title, Q\+String genre, Q\+String artist, Q\+String length)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classInformation_ad19c0f45aab3cfd2196edccc5eb19bc9}\label{classInformation_ad19c0f45aab3cfd2196edccc5eb19bc9}} 
+\index{Information@{Information}!Information@{Information}}
+\index{Information@{Information}!Information@{Information}}
+\doxysubsubsection{\texorpdfstring{Information()}{Information()}}
+{\footnotesize\ttfamily Information\+::\+Information (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+This class creates a window that shows the information of the track that is currently playing. 
+
+\begin{DoxyAuthor}{Author}
+Monica Waterhouse 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classInformation_ab32877d8a3d36096422490caec68dc2d}\label{classInformation_ab32877d8a3d36096422490caec68dc2d}} 
+\index{Information@{Information}!getInformation@{getInformation}}
+\index{getInformation@{getInformation}!Information@{Information}}
+\doxysubsubsection{\texorpdfstring{getInformation()}{getInformation()}}
+{\footnotesize\ttfamily void Information\+::get\+Information (\begin{DoxyParamCaption}\item[{Q\+String}]{title,  }\item[{Q\+String}]{genre,  }\item[{Q\+String}]{artist,  }\item[{Q\+String}]{length }\end{DoxyParamCaption})}
+
+Takes the parameters from the Main Window class according to the track that is currently playing 
+\begin{DoxyParams}{Parameters}
+{\em title} & \\
+\hline
+{\em genre} & \\
+\hline
+{\em artist} & \\
+\hline
+{\em length} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+information.\+h\item 
+information.\+cpp\end{DoxyCompactItemize}

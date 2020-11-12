@@ -254,7 +254,7 @@ void MainWindow::SetPreviousBtn() {
 }
 
 /*!
- * Plays next song
+ * Plays next song in the list view
  */
 void MainWindow::on_nextBtn_clicked()
 {
@@ -268,7 +268,7 @@ void MainWindow::on_nextBtn_clicked()
 }
 
 /*!
- * Plays previous song
+ * Plays previous song in the list view
  */
 void MainWindow::on_previousBtn_clicked()
 {

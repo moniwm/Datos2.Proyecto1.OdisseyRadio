@@ -63,18 +63,77 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classMemoryUsage-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MemoryUsage Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="MemoryUsage_8h_source.html">MemoryUsage.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for MemoryUsage:</div>
+<div class="dyncontent">
+<div class="center"><img src="classMemoryUsage__coll__graph.png" border="0" usemap="#MemoryUsage_coll__map" alt="Collaboration graph"/></div>
+<!-- MAP 0 -->
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a17940281ff74392ce1a6617fb2e3058f"><td class="memItemLeft" align="right" valign="top"><a id="a17940281ff74392ce1a6617fb2e3058f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MemUsage</b> (double &amp;vm_usage, double &amp;resident_set, double &amp;max_rss)</td></tr>
+<tr class="memitem:a17940281ff74392ce1a6617fb2e3058f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMemoryUsage.html#a17940281ff74392ce1a6617fb2e3058f">MemUsage</a> (double &amp;vm_usage, double &amp;resident_set, double &amp;max_rss)</td></tr>
 <tr class="separator:a17940281ff74392ce1a6617fb2e3058f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a89564aaf9ffc9ed748825fcbb345c51d"><td class="memItemLeft" align="right" valign="top"><a id="a89564aaf9ffc9ed748825fcbb345c51d"></a>
+<a class="el" href="classOS.html">OS</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>os</b></td></tr>
+<tr class="separator:a89564aaf9ffc9ed748825fcbb345c51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class that implements method that check for memory usage </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a17940281ff74392ce1a6617fb2e3058f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17940281ff74392ce1a6617fb2e3058f">&#9670;&nbsp;</a></span>MemUsage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MemoryUsage::MemUsage </td>
+          <td>(</td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>vm_usage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>resident_set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>max_rss</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks the amount of memory usage, resident set size and maximum resident set size (in MB) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vm_usage</td><td></td></tr>
+    <tr><td class="paramname">resident_set</td><td></td></tr>
+    <tr><td class="paramname">max_rss</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="MemoryUsage_8h_source.html">MemoryUsage.h</a></li>
 <li>MemoryUsage.cpp</li>

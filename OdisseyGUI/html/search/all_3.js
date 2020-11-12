@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['pausesong_6',['PauseSong',['../classMP3Player.html#a77c1ba291d899d0201d0b8216449654e',1,'MP3Player']]],
-  ['playsong_7',['PlaySong',['../classMP3Player.html#a2ff1e336a035a4105d3d9f720aa8d815',1,'MP3Player']]]
+  ['information_6',['Information',['../classInformation.html',1,'Information'],['../classInformation.html#ad19c0f45aab3cfd2196edccc5eb19bc9',1,'Information::Information()']]],
+  ['islinux_7',['isLinux',['../classOS.html#a5f49ab3784581713df2dd5d039db5fbc',1,'OS']]],
+  ['islinuxos_8',['IsLinuxOS',['../classOS.html#a6a686c0b987b18eb9122b2d27e88ddeb',1,'OS']]]
 ];

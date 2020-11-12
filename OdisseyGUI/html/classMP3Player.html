@@ -71,8 +71,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae789cdc9707844169945bb9e7903a9f2"><td class="memItemLeft" align="right" valign="top"><a id="ae789cdc9707844169945bb9e7903a9f2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MP3Player</b> (Ui::MainWindow **ppUi)</td></tr>
+<tr class="memitem:ae789cdc9707844169945bb9e7903a9f2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#ae789cdc9707844169945bb9e7903a9f2">MP3Player</a> (Ui::MainWindow **ppUi)</td></tr>
+<tr class="memdesc:ae789cdc9707844169945bb9e7903a9f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class in charge of providing methods to play, pause, fast-forward/backward the selected song.  <a href="classMP3Player.html#ae789cdc9707844169945bb9e7903a9f2">More...</a><br /></td></tr>
 <tr class="separator:ae789cdc9707844169945bb9e7903a9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb4797808226c38ae98c55336e06e2aa"><td class="memItemLeft" align="right" valign="top"><a id="afb4797808226c38ae98c55336e06e2aa"></a>
 QMediaPlayer *&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayer</b> () const</td></tr>
@@ -80,6 +80,9 @@ QMediaPlayer *&#160;</td><td class="memItemRight" valign="bottom"><b>getPlayer</
 <tr class="memitem:a8c42585aa02ab1d380f8455ee9fd6dac"><td class="memItemLeft" align="right" valign="top"><a id="a8c42585aa02ab1d380f8455ee9fd6dac"></a>
 qint64&#160;</td><td class="memItemRight" valign="bottom"><b>getSongDuration</b> () const</td></tr>
 <tr class="separator:a8c42585aa02ab1d380f8455ee9fd6dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb72fbaadd1c6e451fcfcb2c8e45f202"><td class="memItemLeft" align="right" valign="top"><a id="acb72fbaadd1c6e451fcfcb2c8e45f202"></a>
+QMediaPlaylist *&#160;</td><td class="memItemRight" valign="bottom"><b>getPlaylist</b> () const</td></tr>
+<tr class="separator:acb72fbaadd1c6e451fcfcb2c8e45f202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a812b59379efc39865d8602898b8a7abf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#a812b59379efc39865d8602898b8a7abf">UpdateSlider</a> (qint64 current_time)</td></tr>
 <tr class="separator:a812b59379efc39865d8602898b8a7abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6da9d10d4d5d9ae46af984b247fbfdc"><td class="memItemLeft" align="right" valign="top"><a id="af6da9d10d4d5d9ae46af984b247fbfdc"></a>
@@ -93,8 +96,56 @@ Ui::MainWindow *&#160;</td><td class="memItemRight" valign="bottom"><b>getUi</b>
 <tr class="separator:a765abfdeb9c4e3bb34ac864531326093"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b864d9239694ffb58474dd72ea721e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#a1b864d9239694ffb58474dd72ea721e1">SliderMoved</a> (int position)</td></tr>
 <tr class="separator:a1b864d9239694ffb58474dd72ea721e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a753f6870aa497ed915fceb6f0a2250b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#a753f6870aa497ed915fceb6f0a2250b3">setPlayingTrack</a> (int &amp;row, bool click_on_row)</td></tr>
+<tr class="separator:a753f6870aa497ed915fceb6f0a2250b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe4aa72f0d9ceaa69cae2af72ee87cb0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#afe4aa72f0d9ceaa69cae2af72ee87cb0">getRow</a> () const</td></tr>
+<tr class="separator:afe4aa72f0d9ceaa69cae2af72ee87cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a718d6bfc80e414e0602bd6041a851af7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#a718d6bfc80e414e0602bd6041a851af7">RestartSong</a> ()</td></tr>
+<tr class="separator:a718d6bfc80e414e0602bd6041a851af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afea3eb5fe897c51f08d9302fbba8437b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMP3Player.html#afea3eb5fe897c51f08d9302fbba8437b">PreviousSong</a> (int &amp;row)</td></tr>
+<tr class="separator:afea3eb5fe897c51f08d9302fbba8437b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae789cdc9707844169945bb9e7903a9f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae789cdc9707844169945bb9e7903a9f2">&#9670;&nbsp;</a></span>MP3Player()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">MP3Player::MP3Player </td>
+          <td>(</td>
+          <td class="paramtype">Ui::MainWindow **&#160;</td>
+          <td class="paramname"><em>ppUi</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Class in charge of providing methods to play, pause, fast-forward/backward the selected song. </p>
+<dl class="section author"><dt>Author</dt><dd>Luis Pedro Morales Rodríguez </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="afe4aa72f0d9ceaa69cae2af72ee87cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe4aa72f0d9ceaa69cae2af72ee87cb0">&#9670;&nbsp;</a></span>getRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MP3Player::getRow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Row getter </p><dl class="section return"><dt>Returns</dt><dd>row : int </dd></dl>
+
+</div>
+</div>
 <a id="a77c1ba291d899d0201d0b8216449654e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77c1ba291d899d0201d0b8216449654e">&#9670;&nbsp;</a></span>PauseSong()</h2>
 
@@ -128,6 +179,72 @@ Ui::MainWindow *&#160;</td><td class="memItemRight" valign="bottom"><b>getUi</b>
       </table>
 </div><div class="memdoc">
 <p>Method that starts playing current song </p>
+
+</div>
+</div>
+<a id="afea3eb5fe897c51f08d9302fbba8437b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afea3eb5fe897c51f08d9302fbba8437b">&#9670;&nbsp;</a></span>PreviousSong()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MP3Player::PreviousSong </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>row</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Plays previous track in the list view </p>
+
+</div>
+</div>
+<a id="a718d6bfc80e414e0602bd6041a851af7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a718d6bfc80e414e0602bd6041a851af7">&#9670;&nbsp;</a></span>RestartSong()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MP3Player::RestartSong </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Restart current track </p>
+
+</div>
+</div>
+<a id="a753f6870aa497ed915fceb6f0a2250b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a753f6870aa497ed915fceb6f0a2250b3">&#9670;&nbsp;</a></span>setPlayingTrack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MP3Player::setPlayingTrack </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>click_on_row</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the QMediaPlayer and the song's metadata displayed in the info window. Function called when a row is double clicked </p>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['mainwindow_3',['MainWindow',['../classMainWindow.html',1,'MainWindow'],['../classMainWindow.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
-  ['memoryusage_4',['MemoryUsage',['../classMemoryUsage.html',1,'']]],
-  ['mp3player_5',['MP3Player',['../classMP3Player.html',1,'']]]
+  ['getinformation_3',['getInformation',['../classInformation.html#ab32877d8a3d36096422490caec68dc2d',1,'Information']]],
+  ['getinstance_4',['GetInstance',['../classOS.html#ae3bbd9fac4ee41ae5ac1cc42eebe5f18',1,'OS']]],
+  ['getrow_5',['getRow',['../classMP3Player.html#afe4aa72f0d9ceaa69cae2af72ee87cb0',1,'MP3Player']]]
 ];

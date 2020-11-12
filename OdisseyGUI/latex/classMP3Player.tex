@@ -3,14 +3,16 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}\label{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}} 
-{\bfseries M\+P3\+Player} (Ui\+::\+Main\+Window $\ast$$\ast$pp\+Ui)
-\item 
+\mbox{\hyperlink{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}{M\+P3\+Player}} (Ui\+::\+Main\+Window $\ast$$\ast$pp\+Ui)
+\begin{DoxyCompactList}\small\item\em Class in charge of providing methods to play, pause, fast-\/forward/backward the selected song. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMP3Player_afb4797808226c38ae98c55336e06e2aa}\label{classMP3Player_afb4797808226c38ae98c55336e06e2aa}} 
 Q\+Media\+Player $\ast$ {\bfseries get\+Player} () const
 \item 
 \mbox{\Hypertarget{classMP3Player_a8c42585aa02ab1d380f8455ee9fd6dac}\label{classMP3Player_a8c42585aa02ab1d380f8455ee9fd6dac}} 
 qint64 {\bfseries get\+Song\+Duration} () const
+\item 
+\mbox{\Hypertarget{classMP3Player_acb72fbaadd1c6e451fcfcb2c8e45f202}\label{classMP3Player_acb72fbaadd1c6e451fcfcb2c8e45f202}} 
+Q\+Media\+Playlist $\ast$ {\bfseries get\+Playlist} () const
 \item 
 void \mbox{\hyperlink{classMP3Player_a812b59379efc39865d8602898b8a7abf}{Update\+Slider}} (qint64 current\+\_\+time)
 \item 
@@ -24,10 +26,43 @@ void \mbox{\hyperlink{classMP3Player_a77c1ba291d899d0201d0b8216449654e}{Pause\+S
 void \mbox{\hyperlink{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}{set\+Song\+Duration}} (qint64 song\+Duration)
 \item 
 void \mbox{\hyperlink{classMP3Player_a1b864d9239694ffb58474dd72ea721e1}{Slider\+Moved}} (int position)
+\item 
+void \mbox{\hyperlink{classMP3Player_a753f6870aa497ed915fceb6f0a2250b3}{set\+Playing\+Track}} (int \&row, bool click\+\_\+on\+\_\+row)
+\item 
+int \mbox{\hyperlink{classMP3Player_afe4aa72f0d9ceaa69cae2af72ee87cb0}{get\+Row}} () const
+\item 
+void \mbox{\hyperlink{classMP3Player_a718d6bfc80e414e0602bd6041a851af7}{Restart\+Song}} ()
+\item 
+void \mbox{\hyperlink{classMP3Player_afea3eb5fe897c51f08d9302fbba8437b}{Previous\+Song}} (int \&row)
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}\label{classMP3Player_ae789cdc9707844169945bb9e7903a9f2}} 
+\index{MP3Player@{MP3Player}!MP3Player@{MP3Player}}
+\index{MP3Player@{MP3Player}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{MP3Player()}{MP3Player()}}
+{\footnotesize\ttfamily M\+P3\+Player\+::\+M\+P3\+Player (\begin{DoxyParamCaption}\item[{Ui\+::\+Main\+Window $\ast$$\ast$}]{pp\+Ui }\end{DoxyParamCaption})}
+
+
+
+Class in charge of providing methods to play, pause, fast-\/forward/backward the selected song. 
+
+\begin{DoxyAuthor}{Author}
+Luis Pedro Morales Rodríguez 
+\end{DoxyAuthor}
+
+
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMP3Player_afe4aa72f0d9ceaa69cae2af72ee87cb0}\label{classMP3Player_afe4aa72f0d9ceaa69cae2af72ee87cb0}} 
+\index{MP3Player@{MP3Player}!getRow@{getRow}}
+\index{getRow@{getRow}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{getRow()}{getRow()}}
+{\footnotesize\ttfamily int M\+P3\+Player\+::get\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Row getter \begin{DoxyReturn}{Returns}
+row \+: int 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classMP3Player_a77c1ba291d899d0201d0b8216449654e}\label{classMP3Player_a77c1ba291d899d0201d0b8216449654e}} 
 \index{MP3Player@{MP3Player}!PauseSong@{PauseSong}}
 \index{PauseSong@{PauseSong}!MP3Player@{MP3Player}}
@@ -40,7 +75,25 @@ Method that pauses current song \mbox{\Hypertarget{classMP3Player_a2ff1e336a035a
 \doxysubsubsection{\texorpdfstring{PlaySong()}{PlaySong()}}
 {\footnotesize\ttfamily void M\+P3\+Player\+::\+Play\+Song (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Method that starts playing current song \mbox{\Hypertarget{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}\label{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}} 
+Method that starts playing current song \mbox{\Hypertarget{classMP3Player_afea3eb5fe897c51f08d9302fbba8437b}\label{classMP3Player_afea3eb5fe897c51f08d9302fbba8437b}} 
+\index{MP3Player@{MP3Player}!PreviousSong@{PreviousSong}}
+\index{PreviousSong@{PreviousSong}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{PreviousSong()}{PreviousSong()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::\+Previous\+Song (\begin{DoxyParamCaption}\item[{int \&}]{row }\end{DoxyParamCaption})}
+
+Plays previous track in the list view \mbox{\Hypertarget{classMP3Player_a718d6bfc80e414e0602bd6041a851af7}\label{classMP3Player_a718d6bfc80e414e0602bd6041a851af7}} 
+\index{MP3Player@{MP3Player}!RestartSong@{RestartSong}}
+\index{RestartSong@{RestartSong}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{RestartSong()}{RestartSong()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::\+Restart\+Song (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Restart current track \mbox{\Hypertarget{classMP3Player_a753f6870aa497ed915fceb6f0a2250b3}\label{classMP3Player_a753f6870aa497ed915fceb6f0a2250b3}} 
+\index{MP3Player@{MP3Player}!setPlayingTrack@{setPlayingTrack}}
+\index{setPlayingTrack@{setPlayingTrack}!MP3Player@{MP3Player}}
+\doxysubsubsection{\texorpdfstring{setPlayingTrack()}{setPlayingTrack()}}
+{\footnotesize\ttfamily void M\+P3\+Player\+::set\+Playing\+Track (\begin{DoxyParamCaption}\item[{int \&}]{row,  }\item[{bool}]{click\+\_\+on\+\_\+row }\end{DoxyParamCaption})}
+
+Sets the Q\+Media\+Player and the song\textquotesingle{}s metadata displayed in the info window. Function called when a row is double clicked \mbox{\Hypertarget{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}\label{classMP3Player_a765abfdeb9c4e3bb34ac864531326093}} 
 \index{MP3Player@{MP3Player}!setSongDuration@{setSongDuration}}
 \index{setSongDuration@{setSongDuration}!MP3Player@{MP3Player}}
 \doxysubsubsection{\texorpdfstring{setSongDuration()}{setSongDuration()}}

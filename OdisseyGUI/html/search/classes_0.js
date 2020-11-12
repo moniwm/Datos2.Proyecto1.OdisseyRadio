@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['durationsubject_11',['DurationSubject',['../classDurationSubject.html',1,'']]]
+  ['durationsubject_25',['DurationSubject',['../classDurationSubject.html',1,'']]]
 ];

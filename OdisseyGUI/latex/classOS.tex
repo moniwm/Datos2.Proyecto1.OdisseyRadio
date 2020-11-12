@@ -1,0 +1,92 @@
+\hypertarget{classOS}{}\doxysection{OS Class Reference}
+\label{classOS}\index{OS@{OS}}
+
+
+{\ttfamily \#include $<$O\+S.\+h$>$}
+
+
+
+Collaboration diagram for OS\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classOS_a7aa67e6250b74f1df6ba2d2918576ace}{OS}} (\mbox{\hyperlink{classOS}{OS}} \&other)=delete
+\item 
+void \mbox{\hyperlink{classOS_a530b73483605e04245a6be8e6a176e5f}{operator=}} (const \mbox{\hyperlink{classOS}{OS}} \&)=delete
+\item 
+bool \mbox{\hyperlink{classOS_a5f49ab3784581713df2dd5d039db5fbc}{is\+Linux}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classOS}{OS}} $\ast$ \mbox{\hyperlink{classOS_ae3bbd9fac4ee41ae5ac1cc42eebe5f18}{Get\+Instance}} ()
+\item 
+static void \mbox{\hyperlink{classOS_a6a686c0b987b18eb9122b2d27e88ddeb}{Is\+Linux\+OS}} (bool \&is\+\_\+linux)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classOS_a4d1899793ae253c1744150faa6f45dca}\label{classOS_a4d1899793ae253c1744150faa6f45dca}} 
+{\bfseries OS} (bool is\+\_\+linux)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classOS_aebc209f03b78d01845ff8da94e5155e7}\label{classOS_aebc209f03b78d01845ff8da94e5155e7}} 
+bool {\bfseries is\+\_\+linux}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classOS_a4dda90b4f4dd7d203159df92815a3878}\label{classOS_a4dda90b4f4dd7d203159df92815a3878}} 
+static \mbox{\hyperlink{classOS}{OS}} $\ast$ {\bfseries os} = nullptr
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that indicates the \mbox{\hyperlink{classOS}{OS}} used (Linux or Mac). Implements a Singleton Pattern Design 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classOS_a7aa67e6250b74f1df6ba2d2918576ace}\label{classOS_a7aa67e6250b74f1df6ba2d2918576ace}} 
+\index{OS@{OS}!OS@{OS}}
+\index{OS@{OS}!OS@{OS}}
+\doxysubsubsection{\texorpdfstring{OS()}{OS()}}
+{\footnotesize\ttfamily O\+S\+::\+OS (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOS}{OS}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Makes the singleton object non-\/cloneable 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classOS_ae3bbd9fac4ee41ae5ac1cc42eebe5f18}\label{classOS_ae3bbd9fac4ee41ae5ac1cc42eebe5f18}} 
+\index{OS@{OS}!GetInstance@{GetInstance}}
+\index{GetInstance@{GetInstance}!OS@{OS}}
+\doxysubsubsection{\texorpdfstring{GetInstance()}{GetInstance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classOS}{OS}} $\ast$ O\+S\+::\+Get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Static methos that controls access to the singleton instance \mbox{\Hypertarget{classOS_a5f49ab3784581713df2dd5d039db5fbc}\label{classOS_a5f49ab3784581713df2dd5d039db5fbc}} 
+\index{OS@{OS}!isLinux@{isLinux}}
+\index{isLinux@{isLinux}!OS@{OS}}
+\doxysubsubsection{\texorpdfstring{isLinux()}{isLinux()}}
+{\footnotesize\ttfamily bool O\+S\+::is\+Linux (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+is\+\_\+linux getter \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classOS_a6a686c0b987b18eb9122b2d27e88ddeb}\label{classOS_a6a686c0b987b18eb9122b2d27e88ddeb}} 
+\index{OS@{OS}!IsLinuxOS@{IsLinuxOS}}
+\index{IsLinuxOS@{IsLinuxOS}!OS@{OS}}
+\doxysubsubsection{\texorpdfstring{IsLinuxOS()}{IsLinuxOS()}}
+{\footnotesize\ttfamily void O\+S\+::\+Is\+Linux\+OS (\begin{DoxyParamCaption}\item[{bool \&}]{is\+\_\+linux }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Method that checks whether the \mbox{\hyperlink{classOS}{OS}} used is Linux or Mac \mbox{\Hypertarget{classOS_a530b73483605e04245a6be8e6a176e5f}\label{classOS_a530b73483605e04245a6be8e6a176e5f}} 
+\index{OS@{OS}!operator=@{operator=}}
+\index{operator=@{operator=}!OS@{OS}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void O\+S\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classOS}{OS}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Makes singleton object non-\/assignable 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+O\+S.\+h\item 
+O\+S.\+cpp\end{DoxyCompactItemize}

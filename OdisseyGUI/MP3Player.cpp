@@ -85,7 +85,6 @@ void MP3Player::setSongDuration(qint64 songDuration) {
 void MP3Player::SliderMoved(int position) {
     qint64 new_position = song_duration * position / 100;
     player->setPosition(new_position);
-    cout << player->position() << endl;
 }
 
 qint64 MP3Player::getSongDuration() const {
@@ -95,7 +94,7 @@ qint64 MP3Player::getSongDuration() const {
 /*!
  * Sets the QMediaPlayer and the song's metadata displayed in the info window. Function called when a row is double clicked
  */
-void MP3Player::setPlayingTrack(int &row, bool click_on_row) {
+void MP3Player::setPlayingTrack(int &row) {
 
     QTableWidgetItem *track_id = ui->songsList->item(row, 4);
     QTableWidgetItem *track_tittle = ui->songsList->item(row, 0);
@@ -112,8 +111,7 @@ void MP3Player::setPlayingTrack(int &row, bool click_on_row) {
     QString tittle = track_tittle->text();
     ui->nowPlayingLabel->setText(tittle);
     playlist->addMedia(QUrl::fromLocalFile(file_path));
-    if (click_on_row)
-        playlist->next();
+    playlist->next();
     ui->songsList->selectRow(row);
 }
 

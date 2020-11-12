@@ -8493,6 +8493,24 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="memoryPercentage">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>80</y>
+       <width>51</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="QListWidget" name="artist_listWidget">
     <property name="geometry">

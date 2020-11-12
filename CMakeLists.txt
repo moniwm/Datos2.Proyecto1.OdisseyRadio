@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Tell cmake where Qt is located
 set(Qt5_DIR "../Qt/5.15.1/clang_64/lib/cmake/Qt5")
-set(Qt5_DIR "/usr/lib/Qt5.14.2/5.14.2/gcc_64/lib/cmake/Qt5")
+#set(Qt5_DIR "/usr/lib/Qt5.14.2/5.14.2/gcc_64/lib/cmake/Qt5")
 
 # Tell cmake to find the modules Qt5Core and Qt5widgets
 find_package(Qt5 COMPONENTS Core Widgets Multimedia REQUIRED)

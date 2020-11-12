@@ -7,6 +7,7 @@
 #include "mainwindow.h"
 #include "trackListGenerator.h"
 #include <QScrollBar>
+#include <cmath>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
 
@@ -132,11 +133,10 @@ void MainWindow::on_infoBtn_clicked() {
 void MainWindow::on_positionChanged(qint64 position) {
     if (!is_slider_pressed)
         mp3_player->UpdateSlider(position);
-
     if (position == mp3_player->getSongDuration()) {
         int new_row = mp3_player->getRow();
         new_row++;
-        mp3_player->setPlayingTrack(new_row, false);
+        mp3_player->setPlayingTrack(new_row);
         SetInfoWin(new_row);
     }
     ui->lengthLabel->setText(SecondsToMinutes(position / 1000));
@@ -184,7 +184,7 @@ void MainWindow::on_sectionDoubleClicked(const QModelIndex &index) {
     }
     if (!is_playing)
         on_playBtn_clicked();
-    mp3_player->setPlayingTrack(cell_row, true);
+    mp3_player->setPlayingTrack(cell_row);
     SetInfoWin(cell_row);
 
 }
@@ -262,7 +262,7 @@ void MainWindow::on_nextBtn_clicked()
         on_playBtn_clicked();
     int new_row = mp3_player->getRow();
     new_row++;
-    mp3_player->setPlayingTrack(new_row, true);
+    mp3_player->setPlayingTrack(new_row);
     ui->songsList->selectRow(new_row);
     SetInfoWin(new_row);
 }
@@ -469,13 +469,26 @@ void MainWindow::on_paginateBtn_clicked() {
  */
 void MainWindow::UpdateMemoryPB() {
 
-    float memoryUsed  = readMemory() / 1024.00;
-    int val = memoryUsed / maxMemory * 100;
+    float memoryUsed  = readMemory() / 1024;
+    std::string temp;
+
+    temp = std::to_string(memoryUsed);
+    std::string memoryUsedString = temp.substr(0, temp.size()-4);
+
+    float val = memoryUsed / maxMemory * 100;
+    temp = std::to_string(val);
+    std::string memoryPercentageStr = temp.substr(0, temp.size()-5);
     ui->memoryPB->setValue(val);
-    QString text = "Memory usage: ";
-    text.append(QString::fromUtf8(to_string(memoryUsed).c_str()));
-    text.append(" KB");
-    ui->memoryUsageLabel->setText(text);
+
+    QString memoryText = "Memory usage: ";
+    memoryText.append(QString::fromStdString(memoryUsedString));
+    memoryText.append(" KB");
+    ui->memoryUsageLabel->setText(memoryText);
+
+    QString memoryPercentage = " ";
+    memoryPercentage.append(QString::fromStdString(memoryPercentageStr));
+    memoryPercentage.append("%");
+    ui->memoryPercentage->setText(memoryPercentage);
 }
 
 /*!

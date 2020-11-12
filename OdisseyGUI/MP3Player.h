@@ -44,7 +44,7 @@ public:
 
     void SliderMoved(int position);
 
-    void setPlayingTrack(int &row, bool click_on_row);
+    void setPlayingTrack(int &row);
 
     int getRow() const;
 
